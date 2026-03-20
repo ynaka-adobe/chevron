@@ -11,6 +11,24 @@ const HEADER_ACTIONS = [
   '/tools/widgets/toggle',
 ];
 
+const FALLBACK_NAV_HTML = `<div>
+  <p><a href="/"><img src="/img/icons/chevron-logo.svg" alt="Chevron">Chevron</a></p>
+  <p><a href="/tools/widgets/toggle"><span class="icon icon-toggle"></span>Menu</a></p>
+</div>
+<div>
+  <ul>
+    <li><p><a href="/who-we-are">Who we are</a></p></li>
+    <li><p><a href="/what-we-do">What we do</a></p></li>
+    <li><p><a href="/sustainability">Sustainability</a></p></li>
+    <li><p><a href="/investors">Investors</a></p></li>
+    <li><p><a href="/newsroom">Newsroom</a></p></li>
+    <li><p><a href="/who-we-are/contact/jobs">Careers</a></p></li>
+  </ul>
+</div>
+<div>
+  <p><a href="/tools/widgets/scheme"><span class="icon icon-scheme"></span>Toggle color scheme</a></p>
+</div>`;
+
 function closeAllMenus() {
   const openMenus = document.body.querySelectorAll('header .is-open');
   for (const openMenu of openMenus) {
@@ -179,6 +197,23 @@ async function decorateHeader(fragment) {
   }
 }
 
+function buildFallbackNav() {
+  const fragment = document.createElement('div');
+  fragment.classList.add('fragment-content', 'header-content');
+  fragment.innerHTML = FALLBACK_NAV_HTML;
+  // Wrap each direct child div as a section
+  [...fragment.children].forEach((child) => {
+    const section = document.createElement('div');
+    section.className = 'section';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'default-content';
+    wrapper.append(...child.childNodes);
+    section.append(wrapper);
+    child.replaceWith(section);
+  });
+  return fragment;
+}
+
 /**
  * loads and decorates the header
  * @param {Element} el The header element
@@ -186,12 +221,13 @@ async function decorateHeader(fragment) {
 export default async function init(el) {
   const headerMeta = getMetadata('header');
   const path = headerMeta || HEADER_PATH;
+  let fragment;
   try {
-    const fragment = await loadFragment(`${locale.prefix}${path}`);
+    fragment = await loadFragment(`${locale.prefix}${path}`);
     fragment.classList.add('header-content');
-    await decorateHeader(fragment);
-    el.append(fragment);
   } catch (e) {
-    throw Error(e);
+    fragment = buildFallbackNav();
   }
+  await decorateHeader(fragment);
+  el.append(fragment);
 }

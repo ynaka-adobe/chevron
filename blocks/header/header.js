@@ -12,7 +12,7 @@ const HEADER_ACTIONS = [
 ];
 
 const FALLBACK_NAV_HTML = `<div>
-  <p><a href="/"><img src="/img/icons/chevron-logo.svg" alt="Chevron">Chevron</a></p>
+  <p><a href="/"><img src="/img/icons/chevron-logo.png" alt="Chevron">Chevron</a></p>
   <p><a href="/tools/widgets/toggle"><span class="icon icon-toggle"></span>Menu</a></p>
 </div>
 <div>
@@ -119,8 +119,10 @@ async function decorateAction(header, pattern) {
     btn.append(textSpan);
   }
   const wrapper = document.createElement('div');
-  wrapper.className = `action-wrapper ${icon.classList[1].replace('icon-', '')}`;
+  const iconClass = icon?.classList[1]?.replace('icon-', '') || pattern.split('/').pop();
+  wrapper.className = `action-wrapper ${iconClass}`;
   wrapper.append(btn);
+  if (!link.parentElement?.parentElement) return;
   link.parentElement.parentElement.replaceChild(wrapper, link.parentElement);
 
   if (pattern === '/tools/widgets/language') decorateLanguage(btn);
@@ -225,6 +227,9 @@ export default async function init(el) {
   try {
     fragment = await loadFragment(`${locale.prefix}${path}`);
     fragment.classList.add('header-content');
+    // Validate fragment has expected brand link structure
+    const brandLink = fragment.querySelector('a[href="/"]');
+    if (!brandLink) throw new Error('Invalid fragment structure');
   } catch (e) {
     fragment = buildFallbackNav();
   }

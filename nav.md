@@ -1,4 +1,4 @@
-- [![Chevron](/img/icons/chevron-logo.svg)Chevron](/)
+- [![Chevron](/img/icons/chevron-logo.png)Chevron](/)
 - [![Menu](/img/icons/toggle.svg)Menu](/tools/widgets/toggle)
 
 ---

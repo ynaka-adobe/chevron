@@ -1,3 +1,4 @@
+/* Columns Collage - Two-column layout with image grid + text, matching Chevron design */
 .columns-collage > div {
   display: flex;
   flex-direction: column;
@@ -5,6 +6,7 @@
 
 .columns-collage img {
   width: 100%;
+  display: block;
 }
 
 .columns-collage > div > div {
@@ -13,21 +15,86 @@
 
 .columns-collage > div > .columns-collage-img-col {
   order: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
 }
 
-.columns-collage > div > .columns-collage-img-col img {
-  display: block;
+/* Text column styling */
+.columns-collage > div > div:not(.columns-collage-img-col) {
+  padding: var(--spacing-xl) var(--spacing-m);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.columns-collage > div > div:not(.columns-collage-img-col) h2 {
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  font-size: var(--heading-font-size-l);
+  line-height: 1.08;
+  letter-spacing: var(--heading-letter-spacing);
+  margin: 0 0 var(--spacing-m);
+}
+
+.columns-collage > div > div:not(.columns-collage-img-col) h3 {
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  font-size: var(--heading-font-size-m);
+  line-height: 1.17;
+  margin: var(--spacing-m) 0 var(--spacing-s);
+}
+
+.columns-collage > div > div:not(.columns-collage-img-col) p {
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height);
+  margin: 0 0 var(--spacing-m);
+}
+
+.columns-collage > div > div:not(.columns-collage-img-col) a {
+  color: var(--color-medium-blue);
+  font-weight: 700;
+  font-size: var(--body-font-size-m);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.columns-collage > div > div:not(.columns-collage-img-col) a:hover {
+  color: var(--color-dark-blue);
+}
+
+.columns-collage > div > .columns-collage-img-col picture {
+  overflow: hidden;
+}
+
+.columns-collage > div > .columns-collage-img-col picture img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.columns-collage > div > .columns-collage-img-col picture:hover img {
+  transform: scale(1.05);
 }
 
 @media (width >= 900px) {
   .columns-collage > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    align-items: stretch;
+    flex-direction: row;
+    gap: 0;
   }
 
   .columns-collage > div > div {
     flex: 1;
     order: unset;
+  }
+
+  .columns-collage > div > div:not(.columns-collage-img-col) {
+    padding: var(--spacing-xxl);
+  }
+
+  .columns-collage > div > div:not(.columns-collage-img-col) h2 {
+    font-size: var(--heading-font-size-xl);
   }
 }

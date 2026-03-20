@@ -1,3 +1,4 @@
+/* Hero Marquee - Large text section matching Chevron "Who we are" design */
 .hero-marquee-container .hero-marquee-wrapper {
   max-width: unset;
   padding: 0;
@@ -5,33 +6,20 @@
 
 .hero-marquee {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
-}
-
-.hero-marquee h1,
-.hero-marquee h2,
-.hero-marquee h3,
-.hero-marquee h4,
-.hero-marquee h5,
-.hero-marquee h6,
-.hero-marquee p {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero-marquee.no-image * {
-  color: var(--text-color);
+  padding: 80px var(--spacing-m);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
 }
 
 .hero-marquee picture {
   position: absolute;
   z-index: -1;
   inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
 }
 
 .hero-marquee img {
@@ -40,8 +28,66 @@
   height: 100%;
 }
 
+.hero-marquee > div:first-child:has(picture) {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+/* White text on dark blue background */
+.hero-marquee h1,
+.hero-marquee h2,
+.hero-marquee h3,
+.hero-marquee h4,
+.hero-marquee h5,
+.hero-marquee h6 {
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  color: var(--color-white);
+  letter-spacing: -0.02em;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.hero-marquee h2 {
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 1.04;
+}
+
+.hero-marquee p {
+  font-weight: 700;
+  font-size: var(--body-font-size-l);
+  color: var(--color-white);
+  max-width: 600px;
+  margin: 0 auto var(--spacing-m);
+}
+
+.hero-marquee a {
+  color: var(--color-white);
+}
+
+/* No-image variant uses dark blue background */
+.hero-marquee.no-image {
+  background-color: var(--color-dark-blue);
+}
+
+.hero-marquee.no-image h1,
+.hero-marquee.no-image h2,
+.hero-marquee.no-image h3,
+.hero-marquee.no-image h4,
+.hero-marquee.no-image h5,
+.hero-marquee.no-image h6,
+.hero-marquee.no-image p {
+  color: var(--color-white);
+}
+
 @media (width >= 900px) {
   .hero-marquee {
-    padding: 40px 32px;
+    padding: 120px var(--spacing-l);
+    min-height: 500px;
+  }
+
+  .hero-marquee p {
+    margin-top: var(--spacing-m);
   }
 }

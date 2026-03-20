@@ -1,0 +1,47 @@
+.hero-marquee-container .hero-marquee-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-marquee {
+  position: relative;
+  padding: 40px 24px;
+  min-height: 300px;
+}
+
+.hero-marquee h1,
+.hero-marquee h2,
+.hero-marquee h3,
+.hero-marquee h4,
+.hero-marquee h5,
+.hero-marquee h6,
+.hero-marquee p {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--background-color);
+}
+
+.hero-marquee.no-image * {
+  color: var(--text-color);
+}
+
+.hero-marquee picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.hero-marquee img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (width >= 900px) {
+  .hero-marquee {
+    padding: 40px 32px;
+  }
+}

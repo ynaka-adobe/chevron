@@ -11,7 +11,7 @@ header {
   z-index: 1000;
   overflow: hidden;
   max-height: var(--header-height);
-  background-color: light-dark(var(--color-light), var(--color-dark));
+  background-color: var(--color-white);
 
   ul {
     margin: 0;
@@ -136,10 +136,11 @@ header {
         font-weight: 700;
         text-decoration: none;
         margin: 0;
-        color: var(--color-brand);
+        color: var(--color-dark-blue);
 
         img {
           height: var(--logo-height);
+          width: auto;
         }
 
         svg {
@@ -148,10 +149,7 @@ header {
         }
 
         .brand-text {
-          display: block;
-          width: 0;
-          height: 0;
-          overflow: hidden;
+          display: none;
         }
       }
     }
@@ -174,7 +172,7 @@ header {
     }
 
     > .block-content {
-      border-bottom: 1px solid light-dark(var(--color-gray-200), var(--color-gray-600));
+      border-bottom: 1px solid var(--color-light-gray);
     }
 
     .action-wrapper {
@@ -201,7 +199,7 @@ header {
     }
 
     .main-nav-item {
-      border-bottom: 1px solid light-dark(var(--color-gray-200), var(--color-gray-600));
+      border-bottom: 1px solid var(--color-light-gray);
 
       > * {
         max-width: var(--grid-container-width);
@@ -212,6 +210,9 @@ header {
     .main-nav-link {
       display: block;
       line-height: 64px;
+      color: var(--color-dark-blue);
+      font-weight: 700;
+      font-size: var(--body-font-size-m);
     }
 
     .menu,
@@ -221,7 +222,7 @@ header {
 
     .is-open {
       .main-nav-link {
-        border-bottom: 1px solid light-dark(var(--color-gray-200), var(--color-gray-600));
+        border-bottom: 1px solid var(--color-light-gray);
       }
 
       .menu,
@@ -236,13 +237,14 @@ header {
     max-height: initial;
     overflow: initial;
     bottom: 0;
+    background-color: var(--color-white);
 
     .header-content {
       height: 100%;
     }
 
     .brand-section {
-      border-bottom: 1px solid light-dark(var(--color-gray-200), var(--color-gray-600));
+      border-bottom: 1px solid var(--color-light-gray);
     }
   }
 }
@@ -301,7 +303,8 @@ header {
         margin: 0;
       }
 
-      .action-wrapper.more {
+      .action-wrapper.more,
+      .action-wrapper.toggle {
         display: none;
       }
     }
@@ -310,6 +313,7 @@ header {
       .main-nav-list {
         display: flex;
         gap: var(--spacing-l);
+        white-space: nowrap;
       }
 
       .main-nav-item {

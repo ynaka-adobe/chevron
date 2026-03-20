@@ -1,0 +1,33 @@
+.columns-collage > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-collage img {
+  width: 100%;
+}
+
+.columns-collage > div > div {
+  order: 1;
+}
+
+.columns-collage > div > .columns-collage-img-col {
+  order: 0;
+}
+
+.columns-collage > div > .columns-collage-img-col img {
+  display: block;
+}
+
+@media (width >= 900px) {
+  .columns-collage > div {
+    align-items: center;
+    flex-direction: unset;
+    gap: 24px;
+  }
+
+  .columns-collage > div > div {
+    flex: 1;
+    order: unset;
+  }
+}

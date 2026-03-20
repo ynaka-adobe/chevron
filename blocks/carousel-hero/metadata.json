@@ -1,0 +1,31 @@
+{
+  "variantName": "carousel-hero",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-03-19T12:20:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.chevron.com/",
+    "originPage": "Chevron corporate homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "hero-carousel",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image/video + heading + description + CTA per slide",
+    "buttonCount": 1,
+    "imageCount": 6
+  },
+  "reuseGuidance": {
+    "suitableFor": ["homepage hero sections", "landing page hero banners", "full-width promotional carousels"],
+    "notSuitableFor": ["article carousels", "product galleries", "thumbnail carousels"]
+  },
+  "usage": {
+    "pagesUsing": ["content/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-03-19T12:20:00.000Z"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.chevron.com/"
+      ],
+      "description": "Chevron corporate homepage with hero carousel, featured content sections, image collage, ambient video, and news carousel",
+      "blocks": [
+        {
+          "name": "carousel-hero",
+          "instances": [
+            "div.c70.carousel-shared"
+          ]
+        },
+        {
+          "name": "hero-marquee",
+          "instances": [
+            "div.text-marquee.background-color-dark-blue"
+          ]
+        },
+        {
+          "name": "columns-collage",
+          "instances": [
+            "div.c72 .large-layout-container"
+          ]
+        },
+        {
+          "name": "hero-video",
+          "instances": [
+            "div.c17e .media-container.video-container"
+          ]
+        },
+        {
+          "name": "carousel-news",
+          "instances": [
+            "div.c57.carousel-shared section.splide"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero Image Carousel",
+          "selector": "div.c70.carousel-shared",
+          "style": "dark-blue",
+          "blocks": [
+            "carousel-hero"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Who We Are Text Marquee",
+          "selector": "div.text-marquee.background-color-dark-blue",
+          "style": "dark-blue",
+          "blocks": [
+            "hero-marquee"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Mission Statement",
+          "selector": "div#mod_8cb55247.c85",
+          "style": "dark-blue",
+          "blocks": [],
+          "defaultContent": [
+            "div#mod_8cb55247 .description.type-subhead",
+            "div#mod_8cb55247 a.cta-button"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "What We Do Intro",
+          "selector": "div#mod_5865131d.c06r",
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "div#mod_5865131d p.type-eyebrow",
+            "div#mod_5865131d h2.type-display",
+            "div#mod_5865131d .description",
+            "div#mod_5865131d a.cta-button"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Image Collage Grid",
+          "selector": "div#mod_d096fbc1.c72",
+          "style": null,
+          "blocks": [
+            "columns-collage"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Ambient Video",
+          "selector": "div#mod_1fc0c06b.c17e",
+          "style": null,
+          "blocks": [
+            "hero-video"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "People Who Power CTA",
+          "selector": "div#mod_24c3b03c.c06r",
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "div#mod_24c3b03c h2.type-display",
+            "div#mod_24c3b03c .description",
+            "div#mod_24c3b03c a.cta-button"
+          ]
+        },
+        {
+          "id": "section-8",
+          "name": "Latest at Chevron News Carousel",
+          "selector": "div#mod_85834f74.c57",
+          "style": null,
+          "blocks": [
+            "carousel-news"
+          ],
+          "defaultContent": [
+            "div#mod_85834f74 .opening-content p.type-eyebrow",
+            "div#mod_85834f74 .opening-content h3.type-header"
+          ]
+        }
+      ]
+    }
+  ]
+}

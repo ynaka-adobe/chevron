@@ -1,0 +1,31 @@
+{
+  "variantName": "hero-video",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-03-19T12:20:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.chevron.com/",
+    "originPage": "Chevron corporate homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "purpose": "ambient-video",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "video with poster image",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": ["ambient video sections", "background video heroes", "media showcase areas"],
+    "notSuitableFor": ["text-heavy heroes", "hero with CTAs", "image-only heroes"]
+  },
+  "usage": {
+    "pagesUsing": ["content/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-03-19T12:20:00.000Z"
+  }
+}

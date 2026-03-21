@@ -1,11 +1,11 @@
 /* Carousel Hero - Full-screen hero carousel matching Chevron design */
 
-/* Pull hero behind the fixed transparent header */
-.carousel-hero-container {
-  margin-top: calc(-1 * var(--header-height));
+/* Remove body padding when hero is the first section, so it sits behind the transparent header */
+body:has(main > .section:first-child .carousel-hero) {
+  padding-top: 0;
 }
 
-.carousel-hero-container .carousel-hero-wrapper {
+main > .section:first-child:has(.carousel-hero) > .block-content {
   max-width: unset;
   padding: 0;
 }

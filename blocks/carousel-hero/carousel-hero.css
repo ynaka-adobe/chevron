@@ -1,4 +1,10 @@
 /* Carousel Hero - Full-screen hero carousel matching Chevron design */
+
+/* Pull hero behind the fixed transparent header */
+.carousel-hero-container {
+  margin-top: calc(-1 * var(--header-height));
+}
+
 .carousel-hero-container .carousel-hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -35,7 +41,7 @@
   justify-content: flex-end;
   position: relative;
   width: 100%;
-  min-height: calc(100dvh - var(--header-height));
+  min-height: 100dvh;
   background-color: var(--color-dark-blue);
 }
 

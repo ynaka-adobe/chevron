@@ -11,21 +11,24 @@ const HEADER_ACTIONS = [
   '/tools/widgets/toggle',
 ];
 
+/* Chevron layout: left nav | centered logo | right nav + actions */
 const FALLBACK_NAV_HTML = `<div>
-  <p><a href="/"><img src="/img/icons/chevron-logo.png" alt="Chevron">Chevron</a></p>
-  <p><a href="/tools/widgets/toggle"><span class="icon icon-toggle"></span>Menu</a></p>
-</div>
-<div>
   <ul>
     <li><p><a href="/who-we-are">Who we are</a></p></li>
     <li><p><a href="/what-we-do">What we do</a></p></li>
     <li><p><a href="/sustainability">Sustainability</a></p></li>
     <li><p><a href="/investors">Investors</a></p></li>
-    <li><p><a href="/newsroom">Newsroom</a></p></li>
-    <li><p><a href="/who-we-are/contact/jobs">Careers</a></p></li>
   </ul>
 </div>
 <div>
+  <p><a href="/"><img src="/img/icons/chevron-logo.png" alt="Chevron">Chevron</a></p>
+  <p><a href="/tools/widgets/toggle"><span class="icon icon-toggle"></span>Menu</a></p>
+</div>
+<div>
+  <ul>
+    <li><p><a href="/newsroom">Newsroom</a></p></li>
+    <li><p><a href="/who-we-are/contact/jobs">Careers</a></p></li>
+  </ul>
   <p><a href="/tools/widgets/scheme"><span class="icon icon-scheme"></span>Toggle color scheme</a></p>
 </div>`;
 
@@ -89,7 +92,7 @@ function decorateScheme(btn) {
     body.classList.remove(theme.remove);
     body.classList.add(theme.add);
     localStorage.setItem('color-scheme', theme.add);
-    // Re-calculatie section schemes
+    // Re-calculate section schemes
     const sections = document.querySelectorAll('.section');
     for (const section of sections) {
       setColorScheme(section);
@@ -150,7 +153,7 @@ function decorateNavItem(li) {
   const link = li.querySelector(':scope > p > a');
   if (link) link.classList.add('main-nav-link');
   const menu = decorateMegaMenu(li) || decorateMenu(li);
-  if (!(menu || link)) return;
+  if (!menu || !link) return;
   link.addEventListener('click', (e) => {
     e.preventDefault();
     toggleMenu(li);
@@ -159,16 +162,19 @@ function decorateNavItem(li) {
 
 function decorateBrandSection(section) {
   section.classList.add('brand-section');
-  const brandLink = section.querySelector('a');
-  const [, text] = brandLink.childNodes;
-  const span = document.createElement('span');
-  span.className = 'brand-text';
-  span.append(text);
-  brandLink.append(span);
+  const brandLink = section.querySelector('a[href="/"]');
+  if (!brandLink) return;
+  const textNode = [...brandLink.childNodes].find((n) => n.nodeType === Node.TEXT_NODE);
+  if (textNode) {
+    const span = document.createElement('span');
+    span.className = 'brand-text';
+    span.textContent = textNode.textContent;
+    textNode.replaceWith(span);
+  }
 }
 
-function decorateNavSection(section) {
-  section.classList.add('main-nav-section');
+function decorateNavSection(section, side) {
+  section.classList.add('nav-section', `nav-${side}`);
   const navContent = section.querySelector('.default-content');
   const navList = section.querySelector('ul');
   if (!navList) return;
@@ -178,21 +184,17 @@ function decorateNavSection(section) {
   nav.append(navList);
   navContent.append(nav);
 
-  const mainNavItems = section.querySelectorAll('nav > ul > li');
-  for (const navItem of mainNavItems) {
+  const navItems = section.querySelectorAll('nav > ul > li');
+  for (const navItem of navItems) {
     decorateNavItem(navItem);
   }
 }
 
-async function decorateActionSection(section) {
-  section.classList.add('actions-section');
-}
-
 async function decorateHeader(fragment) {
   const sections = fragment.querySelectorAll(':scope > .section');
-  if (sections[0]) decorateBrandSection(sections[0]);
-  if (sections[1]) decorateNavSection(sections[1]);
-  if (sections[2]) decorateActionSection(sections[2]);
+  if (sections[0]) decorateNavSection(sections[0], 'left');
+  if (sections[1]) decorateBrandSection(sections[1]);
+  if (sections[2]) decorateNavSection(sections[2], 'right');
 
   for (const pattern of HEADER_ACTIONS) {
     decorateAction(fragment, pattern);

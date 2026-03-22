@@ -32,6 +32,9 @@ const components = ['fragment', 'schedule'];
 
 // How to decorate an area before loading it
 const decorateArea = ({ area = document }) => {
+  // Skip eagerLoad in UE iframe - image loading can fail (CORS) and trigger about:error
+  if (isUEIframe) return;
+
   const eagerLoad = (parent, selector) => {
     const img = parent.querySelector(selector);
     const validSrc = img?.src && img.src !== 'about:error'

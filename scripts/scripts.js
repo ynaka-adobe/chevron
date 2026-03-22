@@ -1,9 +1,12 @@
 import { loadArea, setConfig } from './ak.js';
 
 // UE Editor support before page load
-if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
-  const basePath = window.hlx?.codeBasePath ?? '';
-  await import(`${basePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());
+// Load when: da.live UE (*.ue.da.live) OR in iframe (experience.adobe.com canvas)
+const isDaLiveUE = /\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname);
+const isUEIframe = window.self !== window.top; // Page in UE canvas from experience.adobe.com
+if (isDaLiveUE || isUEIframe) {
+  const basePath = window.hlx?.codeBasePath ?? window.location.origin;
+  import(`${basePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue()).catch(() => {});
 }
 
 const hostnames = ['authorkit.dev'];

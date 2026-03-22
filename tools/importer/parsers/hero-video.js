@@ -19,20 +19,21 @@ export default function parse(element, { document }) {
   const standaloneImg = element.querySelector('img.img-fluid, img');
 
   if (posterImg) {
-    cells.push([posterImg]);
+    cells.push([document.createComment(' field:image '), posterImg]);
   } else if (video && video.getAttribute('poster')) {
     const img = document.createElement('img');
     img.src = video.getAttribute('poster');
     img.alt = 'Ambient video poster';
-    cells.push([img]);
+    cells.push([document.createComment(' field:image '), img]);
   } else if (standaloneImg) {
-    cells.push([standaloneImg]);
+    cells.push([document.createComment(' field:image '), standaloneImg]);
   }
 
   // Row 2: Video source link (so authors know which video to use)
   const videoSrc = video ? (video.querySelector('source') || {}).src || video.getAttribute('src') : null;
   if (videoSrc) {
     const contentCell = [];
+    contentCell.push(document.createComment(' field:text '));
     const link = document.createElement('a');
     link.href = videoSrc;
     link.textContent = videoSrc;

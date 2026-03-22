@@ -1,4 +1,5 @@
 import observe from '../../scripts/utils/observer.js';
+import moveInstrumentation from '../../scripts/utils/instrumentation.js';
 
 function decorate(el) {
   el.innerHTML = `<iframe src="${el.dataset.src}" class="youtube"
@@ -16,6 +17,7 @@ export default function init(a) {
   params.append('rel', '0');
   params.delete('v');
   div.dataset.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?${params.toString()}`;
+  moveInstrumentation(a, div);
   a.parentElement.replaceChild(div, a);
   observe(div, decorate);
 }

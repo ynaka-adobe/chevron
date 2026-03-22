@@ -25,19 +25,26 @@ export default function parse(element, { document }) {
     // Col 1: Article thumbnail image
     const imageCell = [];
     const img = slide.querySelector('.image-container img, img.img-fluid, img');
-    if (img) imageCell.push(img);
+    if (img) {
+      imageCell.push(document.createComment(' field:image '));
+      imageCell.push(img);
+    }
 
     // Col 2: Date + Headline + Link
     const contentCell = [];
 
     const date = slide.querySelector('p.date, .date');
-    if (date) contentCell.push(date);
-
     const headline = slide.querySelector('h4.slide-header, h4, h3');
+    const articleLink = slide.querySelector('a.cta-link-parent, a[href]');
+
+    if (date || headline || articleLink) {
+      contentCell.push(document.createComment(' field:text '));
+    }
+
+    if (date) contentCell.push(date);
     if (headline) contentCell.push(headline);
 
     // Extract article link from wrapping anchor
-    const articleLink = slide.querySelector('a.cta-link-parent, a[href]');
     if (articleLink) {
       const link = document.createElement('a');
       link.href = articleLink.href;

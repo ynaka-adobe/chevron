@@ -1,4 +1,5 @@
 import { getConfig } from '../../scripts/ak.js';
+import moveInstrumentation from '../../scripts/utils/instrumentation.js';
 
 const { log } = getConfig();
 
@@ -10,6 +11,7 @@ function getTabList(tabs, tabPanels) {
 
   for (const [idx, tab] of tabItems.entries()) {
     const btn = document.createElement('button');
+    moveInstrumentation(tab, btn);
     btn.role = 'tab';
     btn.id = `tab-${idx + 1}`;
     btn.textContent = tab.textContent;

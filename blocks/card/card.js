@@ -1,3 +1,5 @@
+import moveInstrumentation from '../../scripts/utils/instrumentation.js';
+
 export default function init(el) {
   const inner = el.querySelector(':scope > div');
   inner.classList.add('card-inner');
@@ -7,6 +9,7 @@ export default function init(el) {
     if (picPara) {
       const picDiv = document.createElement('div');
       picDiv.className = 'card-picture-container';
+      moveInstrumentation(picPara, picDiv);
       picDiv.append(pic);
       inner.insertAdjacentElement('afterbegin', picDiv);
       picPara.remove();

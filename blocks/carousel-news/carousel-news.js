@@ -1,3 +1,5 @@
+import moveInstrumentation from '../../scripts/utils/instrumentation.js';
+
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel-news');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
@@ -127,7 +129,7 @@ export default async function decorate(block) {
 
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
-    [...row.attributes].forEach((attr) => { if (attr.name.startsWith('data-')) slide.setAttribute(attr.name, attr.value); });
+    moveInstrumentation(row, slide);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {

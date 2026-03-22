@@ -1,25 +1,8 @@
 var CustomImportScript = (() => {
   var __defProp = Object.defineProperty;
-  var __defProps = Object.defineProperties;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
   var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __propIsEnum = Object.prototype.propertyIsEnumerable;
-  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-  var __spreadValues = (a, b) => {
-    for (var prop in b || (b = {}))
-      if (__hasOwnProp.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    if (__getOwnPropSymbols)
-      for (var prop of __getOwnPropSymbols(b)) {
-        if (__propIsEnum.call(b, prop))
-          __defNormalProp(a, prop, b[prop]);
-      }
-    return a;
-  };
-  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
@@ -55,6 +38,7 @@ var CustomImportScript = (() => {
         const img = slides[index].querySelector("img.img-fluid, img");
         const video = slides[index].querySelector("video[poster]");
         if (img) {
+          imageCell.push(document.createComment(" field:image "));
           imageCell.push(img);
         } else if (video) {
           const posterSrc = video.getAttribute("poster");
@@ -62,16 +46,20 @@ var CustomImportScript = (() => {
             const posterImg = document.createElement("img");
             posterImg.src = posterSrc;
             posterImg.alt = "";
+            imageCell.push(document.createComment(" field:image "));
             imageCell.push(posterImg);
           }
         }
       }
       const contentCell = [];
       const heading = item.querySelector("h2.heading, h2, h1, h3");
-      if (heading) contentCell.push(heading);
       const description = item.querySelector(".description");
-      if (description) contentCell.push(description);
       const ctaLink = item.querySelector("a.cta-link");
+      if (heading || description || ctaLink) {
+        contentCell.push(document.createComment(" field:text "));
+      }
+      if (heading) contentCell.push(heading);
+      if (description) contentCell.push(description);
       if (ctaLink) {
         const link = document.createElement("a");
         link.href = ctaLink.href;
@@ -90,12 +78,15 @@ var CustomImportScript = (() => {
     const cells = [];
     const images = Array.from(element.querySelectorAll(".images-container img, .image img"));
     if (images.length > 0) {
-      cells.push([images[0]]);
+      cells.push([document.createComment(" field:image "), images[0]]);
     }
     const contentCell = [];
     const eyebrow = element.querySelector("p.type-eyebrow");
-    if (eyebrow) contentCell.push(eyebrow);
     const heading = element.querySelector("h2.type-display, h2.heading");
+    if (eyebrow || heading || images.length > 1) {
+      contentCell.push(document.createComment(" field:text "));
+    }
+    if (eyebrow) contentCell.push(eyebrow);
     if (heading) {
       const words = Array.from(heading.querySelectorAll("span.text-animation"));
       if (words.length > 0) {
@@ -120,30 +111,20 @@ var CustomImportScript = (() => {
   function parse3(element, { document }) {
     const imageCells = Array.from(element.querySelectorAll('.image-cell, [class*="image-cell"]'));
     const cells = [];
-    const row1 = [];
-    for (let i = 0; i < Math.min(4, imageCells.length); i++) {
+    for (let i = 0; i < imageCells.length; i++) {
       const img = imageCells[i].querySelector("img");
+      const itemCell = [];
       if (img) {
-        row1.push(img);
+        itemCell.push(document.createComment(" field:image "));
+        itemCell.push(img);
       } else {
         const p = document.createElement("p");
         p.textContent = imageCells[i].id || `image-cell-${i + 1}`;
-        row1.push(p);
+        itemCell.push(document.createComment(" field:image "));
+        itemCell.push(p);
       }
+      cells.push([itemCell]);
     }
-    if (row1.length > 0) cells.push(row1);
-    const row2 = [];
-    for (let i = 4; i < Math.min(8, imageCells.length); i++) {
-      const img = imageCells[i].querySelector("img");
-      if (img) {
-        row2.push(img);
-      } else {
-        const p = document.createElement("p");
-        p.textContent = imageCells[i].id || `image-cell-${i + 1}`;
-        row2.push(p);
-      }
-    }
-    if (row2.length > 0) cells.push(row2);
     const block = WebImporter.Blocks.createBlock(document, { name: "columns-collage", cells });
     element.replaceWith(block);
   }
@@ -155,18 +136,19 @@ var CustomImportScript = (() => {
     const posterImg = element.querySelector("video img.img-fluid, video img");
     const standaloneImg = element.querySelector("img.img-fluid, img");
     if (posterImg) {
-      cells.push([posterImg]);
+      cells.push([document.createComment(" field:image "), posterImg]);
     } else if (video && video.getAttribute("poster")) {
       const img = document.createElement("img");
       img.src = video.getAttribute("poster");
       img.alt = "Ambient video poster";
-      cells.push([img]);
+      cells.push([document.createComment(" field:image "), img]);
     } else if (standaloneImg) {
-      cells.push([standaloneImg]);
+      cells.push([document.createComment(" field:image "), standaloneImg]);
     }
     const videoSrc = video ? (video.querySelector("source") || {}).src || video.getAttribute("src") : null;
     if (videoSrc) {
       const contentCell = [];
+      contentCell.push(document.createComment(" field:text "));
       const link = document.createElement("a");
       link.href = videoSrc;
       link.textContent = videoSrc;
@@ -186,13 +168,19 @@ var CustomImportScript = (() => {
     slides.forEach((slide) => {
       const imageCell = [];
       const img = slide.querySelector(".image-container img, img.img-fluid, img");
-      if (img) imageCell.push(img);
+      if (img) {
+        imageCell.push(document.createComment(" field:image "));
+        imageCell.push(img);
+      }
       const contentCell = [];
       const date = slide.querySelector("p.date, .date");
-      if (date) contentCell.push(date);
       const headline = slide.querySelector("h4.slide-header, h4, h3");
-      if (headline) contentCell.push(headline);
       const articleLink = slide.querySelector("a.cta-link-parent, a[href]");
+      if (date || headline || articleLink) {
+        contentCell.push(document.createComment(" field:text "));
+      }
+      if (date) contentCell.push(date);
+      if (headline) contentCell.push(headline);
       if (articleLink) {
         const link = document.createElement("a");
         link.href = articleLink.href;
@@ -400,9 +388,10 @@ var CustomImportScript = (() => {
     ...PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [transform2] : []
   ];
   function executeTransformers(hookName, element, payload) {
-    const enhancedPayload = __spreadProps(__spreadValues({}, payload), {
+    const enhancedPayload = {
+      ...payload,
       template: PAGE_TEMPLATE
-    });
+    };
     transformers.forEach((transformerFn) => {
       try {
         transformerFn.call(null, hookName, element, enhancedPayload);

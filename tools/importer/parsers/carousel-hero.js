@@ -29,6 +29,7 @@ export default function parse(element, { document }) {
       const img = slides[index].querySelector('img.img-fluid, img');
       const video = slides[index].querySelector('video[poster]');
       if (img) {
+        imageCell.push(document.createComment(' field:image '));
         imageCell.push(img);
       } else if (video) {
         const posterSrc = video.getAttribute('poster');
@@ -36,6 +37,7 @@ export default function parse(element, { document }) {
           const posterImg = document.createElement('img');
           posterImg.src = posterSrc;
           posterImg.alt = '';
+          imageCell.push(document.createComment(' field:image '));
           imageCell.push(posterImg);
         }
       }
@@ -44,12 +46,15 @@ export default function parse(element, { document }) {
     // Col 2: Heading + Description + CTA
     const contentCell = [];
     const heading = item.querySelector('h2.heading, h2, h1, h3');
-    if (heading) contentCell.push(heading);
-
     const description = item.querySelector('.description');
+    const ctaLink = item.querySelector('a.cta-link');
+
+    if (heading || description || ctaLink) {
+      contentCell.push(document.createComment(' field:text '));
+    }
+    if (heading) contentCell.push(heading);
     if (description) contentCell.push(description);
 
-    const ctaLink = item.querySelector('a.cta-link');
     if (ctaLink) {
       const link = document.createElement('a');
       link.href = ctaLink.href;

@@ -15,34 +15,22 @@ export default function parse(element, { document }) {
 
   const cells = [];
 
-  // Row 1: first 4 image cells
-  const row1 = [];
-  for (let i = 0; i < Math.min(4, imageCells.length); i++) {
+  // Each image cell becomes one row (container item) with image and optional text
+  for (let i = 0; i < imageCells.length; i++) {
     const img = imageCells[i].querySelector('img');
+    const itemCell = [];
     if (img) {
-      row1.push(img);
+      itemCell.push(document.createComment(' field:image '));
+      itemCell.push(img);
     } else {
       // Image-cell may use background-image CSS; create placeholder reference
       const p = document.createElement('p');
       p.textContent = imageCells[i].id || `image-cell-${i + 1}`;
-      row1.push(p);
+      itemCell.push(document.createComment(' field:image '));
+      itemCell.push(p);
     }
+    cells.push([itemCell]);
   }
-  if (row1.length > 0) cells.push(row1);
-
-  // Row 2: remaining 4 image cells
-  const row2 = [];
-  for (let i = 4; i < Math.min(8, imageCells.length); i++) {
-    const img = imageCells[i].querySelector('img');
-    if (img) {
-      row2.push(img);
-    } else {
-      const p = document.createElement('p');
-      p.textContent = imageCells[i].id || `image-cell-${i + 1}`;
-      row2.push(p);
-    }
-  }
-  if (row2.length > 0) cells.push(row2);
 
   const block = WebImporter.Blocks.createBlock(document, { name: 'columns-collage', cells });
   element.replaceWith(block);

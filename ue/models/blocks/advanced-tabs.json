@@ -1,0 +1,56 @@
+{
+  "definitions": [
+    {
+      "title": "Advanced Tabs",
+      "id": "advanced-tabs",
+      "model": "advanced-tabs",
+      "filter": "advanced-tabs",
+      "plugins": {
+        "da": {
+          "columns": 1,
+          "rows": 2
+        }
+      }
+    },
+    {
+      "title": "Advanced Tabs Item",
+      "id": "advanced-tabs-item",
+      "model": "advanced-tabs-item",
+      "plugins": {
+        "da": {
+          "columns": 0,
+          "rows": 2,
+          "fields": [
+            { "name": "name", "selector": "div:nth-child(1)" },
+            { "name": "content", "selector": "div:nth-child(2)" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "advanced-tabs-item",
+      "fields": [
+        {
+          "component": "text",
+          "name": "name",
+          "valueType": "string",
+          "label": "Tab Name"
+        },
+        {
+          "component": "richtext",
+          "name": "content",
+          "label": "Content",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "advanced-tabs",
+      "components": ["advanced-tabs-item"]
+    }
+  ]
+}

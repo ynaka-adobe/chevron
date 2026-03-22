@@ -1,0 +1,61 @@
+{
+  "definitions": [
+    {
+      "title": "Columns Collage",
+      "id": "columns-collage",
+      "model": "columns-collage",
+      "filter": "columns-collage",
+      "plugins": {
+        "da": {
+          "name": "columns-collage",
+          "rows": 1,
+          "columns": 2
+        }
+      }
+    },
+    {
+      "title": "Columns Collage Row",
+      "id": "columns-collage-row",
+      "model": "columns-collage-row",
+      "filter": "columns-collage-row",
+      "plugins": {
+        "da": {
+          "name": "columns-collage-row",
+          "behaviour": "columns-row"
+        }
+      }
+    },
+    {
+      "title": "Columns Collage Cell",
+      "id": "columns-collage-cell",
+      "model": "columns-collage-cell",
+      "filter": "columns-collage-cell",
+      "plugins": {
+        "da": {
+          "unsafeHTML": " ",
+          "behaviour": "columns-cell"
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "columns-collage",
+      "fields": []
+    }
+  ],
+  "filters": [
+    {
+      "id": "columns-collage",
+      "components": ["columns-collage-row"]
+    },
+    {
+      "id": "columns-collage-row",
+      "components": []
+    },
+    {
+      "id": "columns-collage-cell",
+      "components": ["text", "image"]
+    }
+  ]
+}

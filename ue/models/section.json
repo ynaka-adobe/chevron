@@ -1,0 +1,57 @@
+{
+  "definitions": [
+    {
+      "title": "Section",
+      "id": "section",
+      "plugins": {
+        "da": {
+          "unsafeHTML": " "
+        }
+      },
+      "filter": "section",
+      "model": "section"
+    }
+  ],
+  "models": [
+    {
+      "id": "section",
+      "fields": [
+        {
+          "component": "multiselect",
+          "name": "style",
+          "label": "Style",
+          "options": [
+            { "name": "Highlight", "value": "highlight" }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "section",
+      "components": [
+        "accordion",
+        "cards",
+        "card",
+        "carousel",
+        "carousel-hero",
+        "carousel-news",
+        "columns",
+        "columns-collage",
+        "advanced-tabs",
+        "fragment",
+        "hero",
+        "hero-video",
+        "hero-marquee",
+        "image",
+        "quote",
+        "table",
+        "text",
+        "video",
+        "youtube",
+        "section-metadata"
+      ]
+    }
+  ]
+}

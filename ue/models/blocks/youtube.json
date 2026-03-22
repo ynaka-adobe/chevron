@@ -1,0 +1,34 @@
+{
+  "definitions": [
+    {
+      "title": "YouTube",
+      "id": "youtube",
+      "model": "youtube",
+      "plugins": {
+        "da": {
+          "name": "youtube",
+          "rows": 1,
+          "columns": 1,
+          "fields": [
+            { "name": "videoUrl", "selector": "div>div>p>a[href]" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "youtube",
+      "fields": [
+        {
+          "component": "text",
+          "name": "videoUrl",
+          "label": "YouTube URL",
+          "valueType": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

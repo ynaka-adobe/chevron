@@ -4,29 +4,24 @@
     "fields": [
       {
         "component": "text",
-        "valueType": "string",
-        "name": "jcr:title",
+        "name": "title",
         "label": "Title"
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "jcr:description",
+        "name": "description",
         "label": "Description"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "keywords",
-        "multi": true,
-        "label": "Keywords"
+        "component": "reference",
+        "name": "image",
+        "label": "Image"
       },
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
+        "component": "text",
+        "name": "robots",
+        "label": "Robots",
+        "description": "Index control via robots"
       }
     ]
   },
@@ -47,219 +42,56 @@
     ]
   },
   {
-    "id": "title",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "select",
-        "name": "titleType",
-        "label": "Title Type",
-        "options": [
-          { "name": "h1", "value": "h1" },
-          { "name": "h2", "value": "h2" },
-          { "name": "h3", "value": "h3" },
-          { "name": "h4", "value": "h4" },
-          { "name": "h5", "value": "h5" },
-          { "name": "h6", "value": "h6" }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "button",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      },
-      {
-        "component": "text",
-        "name": "linkText",
-        "label": "Text"
-      },
-      {
-        "component": "text",
-        "name": "linkTitle",
-        "label": "Title"
-      },
-      {
-        "component": "select",
-        "name": "linkType",
-        "label": "Type",
-        "options": [
-          { "name": "default", "value": "" },
-          { "name": "primary", "value": "primary" },
-          { "name": "secondary", "value": "secondary" }
-        ]
-      }
-    ]
-  },
-  {
     "id": "section",
     "fields": [
-      {
-        "component": "text",
-        "name": "name",
-        "label": "Section Name",
-        "description": "The label shown for this section in the Content Tree"
-      },
       {
         "component": "multiselect",
         "name": "style",
         "label": "Style",
         "options": [
-          { "name": "Dark Blue", "value": "dark-blue" },
-          { "name": "Light Gray", "value": "light-gray" },
-          { "name": "Highlight", "value": "highlight" }
+          {
+            "name": "Highlight",
+            "value": "highlight"
+          }
         ]
-      },
-      {
-        "component": "select",
-        "name": "layout",
-        "label": "Layout",
-        "options": [
-          { "name": "Default", "value": "" },
-          { "name": "Full Width", "value": "full" },
-          { "name": "Narrow", "value": "narrow" }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "background",
-        "label": "Background Color",
-        "description": "CSS color value or color-token name (e.g., color-token-dark-blue)"
       }
     ]
   },
   {
-    "id": "hero",
+    "id": "accordion-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
-        "name": "image",
-        "label": "Background Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt Text"
+        "name": "summary",
+        "value": "",
+        "label": "Summary",
+        "required": true
       },
       {
         "component": "richtext",
         "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "advanced-tabs-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "valueType": "string",
+        "label": "Tab Name"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
         "label": "Content",
-        "valueType": "string",
-        "description": "Heading, detail text, and CTA link"
-      }
-    ]
-  },
-  {
-    "id": "hero-marquee",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false,
-        "description": "Optional background or accent image"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt Text"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "label": "Content",
-        "valueType": "string",
-        "description": "Heading, body text, and CTA link"
-      }
-    ]
-  },
-  {
-    "id": "hero-video",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Background Image",
-        "multi": false,
-        "description": "Optional background image or video poster"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt Text"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "label": "Content",
-        "valueType": "string",
-        "description": "Heading, body text, and CTA link"
-      }
-    ]
-  },
-  {
-    "id": "carousel-hero-slide",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Slide Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt Text"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "label": "Slide Content",
-        "valueType": "string",
-        "description": "Heading, description, and CTA link"
-      }
-    ]
-  },
-  {
-    "id": "carousel-news-slide",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Article Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt Text"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "label": "Article Content",
-        "valueType": "string",
-        "description": "Date, headline, and read article link"
+        "valueType": "string"
       }
     ]
   },
@@ -270,26 +102,51 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Card Image",
+        "label": "Image",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
-        "label": "Image Alt Text"
+        "label": "Image Alt",
+        "multi": false
       },
       {
         "component": "richtext",
         "name": "text",
-        "label": "Card Content",
-        "valueType": "string",
-        "description": "Heading, description, and CTA link"
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
   {
-    "id": "columns-collage-item",
+    "id": "carousel-hero-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "backgroundImage",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "backgroundImageAlt",
+        "label": "Background Image Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "carousel-news-item",
     "fields": [
       {
         "component": "reference",
@@ -302,12 +159,197 @@
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
-        "label": "Image Alt Text"
+        "label": "Image Alt"
       },
       {
         "component": "richtext",
         "name": "text",
-        "label": "Content",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "backgroundImage",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "backgroundImageAlt",
+        "label": "Background Image Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "columns-collage",
+    "fields": []
+  },
+  {
+    "id": "columns",
+    "fields": [
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "columns",
+        "label": "Number of Columns",
+        "value": 2,
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 6
+        }
+      }
+    ]
+  },
+  {
+    "id": "fragment",
+    "fields": [
+      {
+        "component": "text",
+        "name": "urlText",
+        "label": "Fragment URL Text"
+      },
+      {
+        "component": "text",
+        "name": "url",
+        "label": "Fragment URL",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "hero-marquee",
+    "fields": [
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "hero-video",
+    "fields": [
+      {
+        "component": "text",
+        "name": "videoUrl",
+        "label": "Video URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "hero",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "quote",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "quote",
+        "label": "Quote",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "author",
+        "label": "Author",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "section-metadata",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "style",
+        "label": "Style",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "grid",
+        "label": "Grid",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "gap",
+        "label": "Gap",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "spacing",
+        "label": "Spacing",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "container",
+        "label": "Container",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "layout",
+        "label": "Layout",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "background-color",
+        "label": "Background Color",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "background-image",
+        "label": "Background Image",
         "valueType": "string"
       }
     ]
@@ -317,10 +359,56 @@
     "fields": [
       {
         "component": "richtext",
-        "name": "text",
-        "label": "Table Content",
+        "name": "table",
+        "value": "",
+        "label": "Table Content"
+      }
+    ]
+  },
+  {
+    "id": "tabs-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
         "valueType": "string",
-        "description": "Paste or type table content"
+        "label": "Tab Name"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "video",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "classes_autoplay",
+        "label": "Autoplay Video",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "videoUrl",
+        "label": "Video URL",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "videoUrlText",
+        "label": "Video URL Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "posterImage",
+        "label": "Poster Image",
+        "valueType": "string"
       }
     ]
   },
@@ -329,38 +417,10 @@
     "fields": [
       {
         "component": "text",
-        "valueType": "string",
-        "name": "url",
+        "name": "videoUrl",
         "label": "YouTube URL",
-        "description": "Full YouTube video URL (e.g., https://www.youtube.com/watch?v=...)"
-      }
-    ]
-  },
-  {
-    "id": "fragment",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "reference",
-        "label": "Fragment",
-        "description": "Path to the fragment page"
-      }
-    ]
-  },
-  {
-    "id": "tab-item",
-    "fields": [
-      {
-        "component": "text",
         "valueType": "string",
-        "name": "title",
-        "label": "Tab Label"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "label": "Tab Content",
-        "valueType": "string"
+        "required": true
       }
     ]
   }

@@ -1,0 +1,31 @@
+{
+  "definitions": [
+    {
+      "title": "Hero Marquee",
+      "id": "hero-marquee",
+      "model": "hero-marquee",
+      "plugins": {
+        "da": {
+          "unsafeHTML": " ",
+          "fields": [
+            { "name": "text", "selector": "div>div>h1" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "hero-marquee",
+      "fields": [
+        {
+          "component": "text",
+          "name": "text",
+          "label": "Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

@@ -8,55 +8,115 @@
   {
     "id": "section",
     "components": [
-      "text",
-      "image",
-      "button",
-      "title",
-      "hero",
-      "hero-marquee",
-      "hero-video",
+      "accordion",
+      "cards",
+      "card",
+      "carousel",
       "carousel-hero",
       "carousel-news",
       "columns",
       "columns-collage",
-      "card",
-      "table",
-      "youtube",
+      "advanced-tabs",
       "fragment",
-      "advanced-tabs"
-    ]
-  },
-  {
-    "id": "carousel-hero",
-    "components": [
-      "carousel-hero-slide"
-    ]
-  },
-  {
-    "id": "carousel-news",
-    "components": [
-      "carousel-news-slide"
-    ]
-  },
-  {
-    "id": "columns-collage",
-    "components": [
-      "columns-collage-item"
-    ]
-  },
-  {
-    "id": "columns",
-    "components": [
-      "text",
+      "hero",
+      "hero-video",
+      "hero-marquee",
       "image",
-      "button",
-      "title"
+      "quote",
+      "table",
+      "text",
+      "video",
+      "youtube",
+      "section-metadata"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
     ]
   },
   {
     "id": "advanced-tabs",
     "components": [
-      "tab-item"
+      "advanced-tabs-item"
+    ]
+  },
+  {
+    "id": "cards",
+    "components": [
+      "card"
+    ]
+  },
+  {
+    "id": "carousel-hero",
+    "components": [
+      "carousel-hero-item"
+    ]
+  },
+  {
+    "id": "carousel-news",
+    "components": [
+      "carousel-news-item"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-item"
+    ]
+  },
+  {
+    "id": "columns-collage",
+    "components": [
+      "columns-collage-row"
+    ]
+  },
+  {
+    "id": "columns-collage-row",
+    "components": []
+  },
+  {
+    "id": "columns-collage-cell",
+    "components": [
+      "text",
+      "image"
+    ]
+  },
+  {
+    "id": "columns",
+    "components": [
+      "columns-row"
+    ]
+  },
+  {
+    "id": "columns-row",
+    "components": []
+  },
+  {
+    "id": "columns-cell",
+    "components": [
+      "text",
+      "image"
+    ]
+  },
+  {
+    "id": "table",
+    "rte": {
+      "toolbar": {
+        "insert": [
+          "table"
+        ],
+        "sections": [
+          "insert"
+        ]
+      }
+    }
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tabs-item"
     ]
   }
 ]

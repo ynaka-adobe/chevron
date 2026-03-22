@@ -1,5 +1,11 @@
 import { loadArea, setConfig } from './ak.js';
 
+// UE Editor support before page load
+if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
+  const basePath = window.hlx?.codeBasePath ?? '';
+  await import(`${basePath}/ue/scripts/ue.js`).then(({ default: ue }) => ue());
+}
+
 const hostnames = ['authorkit.dev'];
 
 const locales = {

@@ -1,0 +1,71 @@
+{
+  "definitions": [
+    {
+      "title": "Section Metadata",
+      "id": "section-metadata",
+      "model": "section-metadata",
+      "plugins": {
+        "da": {
+          "name": "section-metadata",
+          "type": "key-value-block"
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "section-metadata",
+      "fields": [
+        {
+          "component": "multiselect",
+          "name": "style",
+          "label": "Style",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "grid",
+          "label": "Grid",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "gap",
+          "label": "Gap",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "spacing",
+          "label": "Spacing",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "container",
+          "label": "Container",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "layout",
+          "label": "Layout",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "background-color",
+          "label": "Background Color",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "background-image",
+          "label": "Background Image",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "main",
+    "components": [
+      "section"
+    ]
+  },
+  {
+    "id": "section",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "hero-marquee",
+      "hero-video",
+      "carousel-hero",
+      "carousel-news",
+      "columns",
+      "columns-collage",
+      "card",
+      "table",
+      "youtube",
+      "fragment",
+      "advanced-tabs"
+    ]
+  },
+  {
+    "id": "carousel-hero",
+    "components": [
+      "carousel-hero-slide"
+    ]
+  },
+  {
+    "id": "carousel-news",
+    "components": [
+      "carousel-news-slide"
+    ]
+  },
+  {
+    "id": "columns-collage",
+    "components": [
+      "columns-collage-item"
+    ]
+  },
+  {
+    "id": "columns",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
+    "id": "advanced-tabs",
+    "components": [
+      "tab-item"
+    ]
+  }
+]

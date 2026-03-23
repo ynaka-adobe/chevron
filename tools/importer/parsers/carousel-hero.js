@@ -33,12 +33,23 @@ export default function parse(element, { document }) {
         imageCell.push(img);
       } else if (video) {
         const posterSrc = video.getAttribute('poster');
-        if (posterSrc) {
+        const videoSrc = video.querySelector('source')?.src || video.getAttribute('src');
+        if (posterSrc || videoSrc) {
           const posterImg = document.createElement('img');
-          posterImg.src = posterSrc;
+          posterImg.src = posterSrc || '';
           posterImg.alt = '';
-          imageCell.push(document.createComment(' field:image '));
-          imageCell.push(posterImg);
+          const picture = document.createElement('picture');
+          picture.appendChild(posterImg);
+          if (videoSrc) {
+            const videoLink = document.createElement('a');
+            videoLink.href = videoSrc;
+            videoLink.appendChild(picture);
+            imageCell.push(document.createComment(' field:image '));
+            imageCell.push(videoLink);
+          } else {
+            imageCell.push(document.createComment(' field:image '));
+            imageCell.push(picture);
+          }
         }
       }
     }

@@ -1,7 +1,89 @@
 import moveInstrumentation from '../../scripts/utils/instrumentation.js';
 
+const ZOOM_DURATION_MS = 8000;
+
+function clearAdvanceTimeout(block) {
+  if (block._carouselAdvanceTimeout) {
+    clearTimeout(block._carouselAdvanceTimeout);
+    block._carouselAdvanceTimeout = null;
+  }
+}
+
+function scheduleAdvance(block, delay) {
+  const slides = block.querySelectorAll('.carousel-hero-slide');
+  if (slides.length < 2) return;
+  clearAdvanceTimeout(block);
+  block._carouselAdvanceTimeout = setTimeout(() => {
+    block._carouselAdvanceTimeout = null;
+    const current = parseInt(block.dataset.activeSlide, 10);
+    showSlide(block, current + 1);
+  }, delay);
+}
+
+function decorateSlideMedia(slide) {
+  const imageCol = slide.querySelector('.carousel-hero-slide-image');
+  if (!imageCol) return;
+  const picture = imageCol.querySelector('picture');
+  const vidLink = picture?.closest('a[href*=".mp4"], a[href*=".webm"]')
+    ?? imageCol.querySelector('a[href*=".mp4"], a[href*=".webm"]');
+  if (vidLink) {
+    const video = document.createElement('video');
+    video.src = vidLink.href;
+    video.loop = true;
+    video.muted = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('preload', 'metadata');
+    video.dataset.carouselVideo = 'true';
+    const img = picture?.querySelector('img') ?? vidLink.querySelector('img');
+    if (img?.src) video.poster = img.src;
+    video.load();
+    vidLink.replaceWith(video);
+    return;
+  }
+  if (picture) {
+    imageCol.dataset.carouselImage = 'true';
+    const slideIndex = parseInt(slide.dataset.slideIndex, 10);
+    imageCol.dataset.carouselFocal = slideIndex % 2 === 0 ? 'left' : 'right';
+  }
+}
+
+function startImageZoomWhenActive(slide) {
+  const block = slide?.closest('.carousel-hero');
+  const imageCol = slide?.querySelector('.carousel-hero-slide-image[data-carousel-image]');
+  if (!imageCol || imageCol.dataset.carouselZoomStarted === 'true') return;
+  const img = imageCol.querySelector('picture img');
+  if (!img) return;
+
+  const runZoom = () => {
+    imageCol.dataset.carouselZoomStarted = 'true';
+    imageCol.classList.add('carousel-hero-slide-image--zoomed');
+    scheduleAdvance(block, ZOOM_DURATION_MS);
+  };
+
+  const startAfterLoad = () => setTimeout(runZoom, 500);
+
+  if (img.complete) startAfterLoad();
+  else img.addEventListener('load', startAfterLoad, { once: true });
+}
+
+function playActiveSlideVideo(block, activeSlide) {
+  block.querySelectorAll('.carousel-hero-slide video[data-carousel-video]').forEach((v) => {
+    v.pause();
+  });
+  const activeVideo = activeSlide?.querySelector('video[data-carousel-video]');
+  if (activeVideo) {
+    const onPlaying = () => {
+      activeVideo.removeEventListener('playing', onPlaying);
+      scheduleAdvance(block, ZOOM_DURATION_MS);
+    };
+    activeVideo.addEventListener('playing', onPlaying);
+    activeVideo.play().catch(() => {});
+  }
+}
+
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel-hero');
+  clearAdvanceTimeout(block);
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
   block.dataset.activeSlide = slideIndex;
 
@@ -26,13 +108,21 @@ function updateActiveSlide(slide) {
       indicator.querySelector('button').setAttribute('disabled', 'true');
     }
   });
+
+  playActiveSlideVideo(block, slide);
+  startImageZoomWhenActive(slide);
 }
 
 export function showSlide(block, slideIndex = 0) {
+  clearAdvanceTimeout(block);
   const slides = block.querySelectorAll('.carousel-hero-slide');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
   if (slideIndex >= slides.length) realSlideIndex = 0;
   const activeSlide = slides[realSlideIndex];
+
+  block.dataset.activeSlide = realSlideIndex;
+  playActiveSlideVideo(block, activeSlide);
+  startImageZoomWhenActive(activeSlide);
 
   activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
   block.querySelector('.carousel-hero-slides').scrollTo({
@@ -111,11 +201,11 @@ export default async function decorate(block) {
   let slideIndicators;
   if (!isSingleSlide) {
     const slideIndicatorsNav = document.createElement('nav');
+    slideIndicatorsNav.classList.add('carousel-hero-slide-indicators-nav');
     slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-hero-slide-indicators');
     slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
 
     const slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-hero-navigation-buttons');
@@ -125,10 +215,12 @@ export default async function decorate(block) {
     `;
 
     container.append(slideNavButtons);
+    container.append(slideIndicatorsNav);
   }
 
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
+    decorateSlideMedia(slide);
     moveInstrumentation(row, slide);
     slidesWrapper.append(slide);
 
@@ -147,5 +239,9 @@ export default async function decorate(block) {
 
   if (!isSingleSlide) {
     bindEvents(block);
+  } else {
+    const singleSlide = slidesWrapper.querySelector('.carousel-hero-slide');
+    playActiveSlideVideo(block, singleSlide);
+    startImageZoomWhenActive(singleSlide);
   }
 }

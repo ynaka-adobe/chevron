@@ -12,6 +12,7 @@ main > .section:first-child:has(.carousel-hero) > .block-content {
 
 .carousel-hero .carousel-hero-slides-container {
   position: relative;
+  min-height: 100dvh;
 }
 
 .carousel-hero .carousel-hero-slides,
@@ -37,17 +38,47 @@ main > .section:first-child:has(.carousel-hero) > .block-content {
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   position: relative;
   width: 100%;
   min-height: 100dvh;
   background-color: var(--color-dark-blue);
 }
 
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image {
+  position: absolute;
+  inset: 0;
+}
+
 .carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+}
+
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image[data-carousel-image][data-carousel-focal="left"] picture > img {
+  transform-origin: left center;
+  transform: scale(1.2);
+  transition: transform 8s ease-out;
+}
+
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image[data-carousel-image][data-carousel-focal="right"] picture > img {
+  transform-origin: right center;
+  transform: scale(1.2);
+  transition: transform 8s ease-out;
+}
+
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image[data-carousel-image].carousel-hero-slide-image--zoomed picture > img {
+  transform: scale(1);
+}
+
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image video {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture > img {
@@ -58,11 +89,20 @@ main > .section:first-child:has(.carousel-hero) > .block-content {
 
 .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
   z-index: 1;
+  width: 100%;
+  max-width: 1000px;
+  height: 372px;
   padding: var(--spacing-l);
   color: var(--color-white);
   position: relative;
-  max-width: 600px;
-  margin: 0 var(--spacing-l) var(--spacing-xxl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(11 45 113 / 75%);
+  border-radius: 12px;
+  box-sizing: border-box;
+  margin-top: 250px;
+  padding: 30px;
 }
 
 .carousel-hero .carousel-hero-slide .carousel-hero-slide-content h2 {
@@ -99,7 +139,15 @@ main > .section:first-child:has(.carousel-hero) > .block-content {
   color: var(--color-light-blue);
 }
 
-/* Slide indicators - small pill/rectangle style */
+/* Slide indicators - embedded at bottom of carousel */
+.carousel-hero .carousel-hero-slide-indicators-nav {
+  position: absolute;
+  bottom: var(--spacing-m);
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
 .carousel-hero .carousel-hero-slide-indicators {
   display: flex;
   justify-content: center;
@@ -187,7 +235,6 @@ main > .section:first-child:has(.carousel-hero) > .block-content {
   }
 
   .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
-    margin: 0 var(--spacing-xxl) 80px;
     padding: var(--spacing-xl);
   }
 
@@ -198,10 +245,10 @@ main > .section:first-child:has(.carousel-hero) > .block-content {
   }
 }
 
-@media (width >= 900px) {
+@media (width < 1024px) {
   .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
-    margin: 0 0 100px;
-    margin-left: calc((100% - var(--grid-container-width)) / 2);
-    max-width: 540px;
+    max-width: calc(100% - var(--spacing-l) * 2);
+    min-height: 280px;
+    height: auto;
   }
 }

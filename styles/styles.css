@@ -93,7 +93,7 @@
   --color-link: var(--color-black);
   --color-brand: var(--color-dark-blue);
   --color-accent: var(--color-medium-blue);
-  --color-background: var(--color-white);
+  --color-background: #0B2E73;
   --color-shaded: var(--color-offwhite);
 
   /* fonts - Montserrat as Gotham alternative */
@@ -292,6 +292,12 @@ main .section.dark-blue {
 /* offwhite section */
 main .section.offwhite {
   background-color: var(--color-offwhite);
+}
+
+/* white section - white background, dark text */
+main .section.white {
+  background-color: var(--color-white);
+  color: var(--color-text);
 }
 
 main {

@@ -88,6 +88,29 @@
     }
   }
 
+  &.white {
+    .default-content,
+    .block-content {
+      max-width: 1400px;
+      margin-inline: auto;
+    }
+  }
+
+  &.white h2 {
+    color: rgb(11, 45, 113);
+    display: block;
+    font-family: "Gotham Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 400;
+    height: 200px;
+    letter-spacing: -1.92px;
+    line-height: 100px;
+    margin-block-end: 32px;
+    margin-block-start: 0;
+    margin-bottom: 32px;
+  }
+
   > .default-content {
     margin-bottom: calc(var(--top-bottom-spacing) / 3);
 

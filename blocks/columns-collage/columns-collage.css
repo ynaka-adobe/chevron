@@ -1,4 +1,11 @@
 /* Columns Collage - Two-column layout with image grid + text, matching Chevron design */
+/* large-layout-container from Chevron source influences width/layout */
+.columns-collage.large-layout-container {
+  max-width: var(--grid-container-width);
+  margin-inline: auto;
+  padding-inline: var(--spacing-m);
+}
+
 .columns-collage > div {
   display: flex;
   flex-direction: column;
@@ -72,6 +79,23 @@
   aspect-ratio: 1;
   object-fit: cover;
   transition: transform 0.4s ease;
+}
+
+/* Images 1 and 4: 367x367 with rounded edges */
+.columns-collage picture:nth-of-type(1),
+.columns-collage picture:nth-of-type(4) {
+  display: block;
+  width: 367px;
+  height: 367px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.columns-collage picture:nth-of-type(1) img,
+.columns-collage picture:nth-of-type(4) img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .columns-collage > div > .columns-collage-img-col picture:hover img {

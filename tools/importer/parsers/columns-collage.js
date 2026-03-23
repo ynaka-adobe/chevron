@@ -33,5 +33,6 @@ export default function parse(element, { document }) {
   }
 
   const block = WebImporter.Blocks.createBlock(document, { name: 'columns-collage', cells });
+  block.classList.add('large-layout-container');
   element.replaceWith(block);
 }

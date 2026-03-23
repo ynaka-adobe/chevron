@@ -89,18 +89,9 @@ function loadTemplate() {
   });
 }
 
-function decoratePictures(el) {
-  const pics = el.querySelectorAll('picture');
-  for (const pic of pics) {
-    const source = pic.querySelector('source');
-    const clone = source.cloneNode();
-    const [pathname, params] = clone.getAttribute('srcset').split('?');
-    const search = new URLSearchParams(params);
-    search.set('width', 3000);
-    clone.setAttribute('srcset', `${pathname}?${search.toString()}`);
-    clone.setAttribute('media', '(min-width: 1440px)');
-    pic.prepend(clone);
-  }
+function decoratePictures() {
+  // Disabled - adding 3000px source triggers about:error when image loads fail
+  // (localhost proxy, UE iframe, CORS). Use default picture srcsets only.
 }
 
 function decorateButton(link) {

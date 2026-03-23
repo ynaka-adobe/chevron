@@ -89,9 +89,26 @@ function loadTemplate() {
   });
 }
 
-function decoratePictures() {
-  // Disabled - adding 3000px source triggers about:error when image loads fail
-  // (localhost proxy, UE iframe, CORS). Use default picture srcsets only.
+function decoratePictures(el) {
+  // Skip in UE iframe - can trigger about:error with image loading
+  if (window.self !== window.top) return;
+
+  const pics = el.querySelectorAll('picture');
+  for (const pic of pics) {
+    const source = pic.querySelector('source');
+    if (!source) continue;
+    const srcset = source.getAttribute('srcset');
+    if (!srcset || srcset.includes('about:error')) continue;
+    const parts = srcset.split('?');
+    const pathname = parts[0];
+    const params = parts[1] || '';
+    const search = new URLSearchParams(params);
+    search.set('width', 3000);
+    const clone = source.cloneNode();
+    clone.setAttribute('srcset', `${pathname}?${search.toString()}`);
+    clone.setAttribute('media', '(min-width: 1440px)');
+    pic.prepend(clone);
+  }
 }
 
 function decorateButton(link) {

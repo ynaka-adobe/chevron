@@ -31,9 +31,20 @@ const linkBlocks = [
 const components = ['fragment', 'schedule'];
 
 // How to decorate an area before loading it
-const decorateArea = ({ area = document } = {}) => {
-  // eagerLoad removed - setting fetchPriority on images triggers about:error
-  // when loads fail (CORS, proxy, UE iframe). LCP impact is minimal.
+const decorateArea = ({ area = document }) => {
+  // Skip eagerLoad in UE iframe - image loading can fail (CORS) and trigger about:error
+  if (isUEIframe) return;
+
+  const eagerLoad = (parent, selector) => {
+    const img = parent.querySelector(selector);
+    const validSrc = img?.src && img.src !== 'about:error'
+      && (img.src.startsWith('http') || img.src.startsWith('data:') || img.src.startsWith('blob:'));
+    if (!validSrc) return;
+    img.removeAttribute('loading');
+    img.fetchPriority = 'high';
+  };
+
+  eagerLoad(area, 'img');
 };
 
 export async function loadPage() {

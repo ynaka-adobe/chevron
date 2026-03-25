@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://www.chevron.com/what-we-do",
+  "path": "what-we-do",
+  "timestamp": "2026-03-23T04:40:40.165Z",
+  "title": "What We Do — Chevron",
+  "template": "section-landing",
+  "blocks": [
+    "hero-video",
+    "columns-collage",
+    "carousel-news"
+  ]
+}

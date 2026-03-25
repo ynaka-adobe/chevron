@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.chevron.com/who-we-are",
+  "path": "who-we-are",
+  "timestamp": "2026-03-23T04:40:32.328Z",
+  "title": "Who We Are — Chevron",
+  "template": "section-landing",
+  "blocks": [
+    "hero-video",
+    "columns-collage",
+    "cards-tile",
+    "cards-tile",
+    "cards-tile",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "carousel-news"
+  ]
+}

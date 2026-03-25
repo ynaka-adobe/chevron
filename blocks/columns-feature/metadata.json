@@ -1,0 +1,21 @@
+{
+  "blockName": "columns-feature",
+  "basedOn": "columns",
+  "source": "Block Collection",
+  "createdFor": "https://www.chevron.com/who-we-are",
+  "description": "Side-by-side feature columns with background image and colored text panel, based on Chevron c69 module",
+  "visualCharacteristics": {
+    "layout": "two-column with background image and text panel",
+    "colorVariants": ["dark-red", "dark-teal", "dark-orange"],
+    "alignment": ["left", "right"],
+    "hasImage": true,
+    "hasCTA": true
+  },
+  "usage": [
+    {
+      "url": "https://www.chevron.com/who-we-are",
+      "instances": 3,
+      "selectors": ["div.c69#mod_1e48a062", "div.c69#mod_0e9c62b7", "div.c69#mod_eb41734f"]
+    }
+  ]
+}

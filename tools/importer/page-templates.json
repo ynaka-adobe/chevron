@@ -129,6 +129,165 @@
           ]
         }
       ]
+    },
+    {
+      "name": "section-landing",
+      "urls": [
+        "https://www.chevron.com/who-we-are",
+        "https://www.chevron.com/what-we-do",
+        "https://www.chevron.com/sustainability",
+        "https://www.chevron.com/investors",
+        "https://www.chevron.com/newsroom"
+      ],
+      "description": "Top-level section landing page with hero, content sections, and CTAs for major Chevron divisions",
+      "blocks": [
+        {
+          "name": "hero-video",
+          "instances": [
+            "div.c74"
+          ]
+        },
+        {
+          "name": "columns-collage",
+          "instances": [
+            "div.c72 .small-layout-container"
+          ]
+        },
+        {
+          "name": "cards-tile",
+          "instances": [
+            "div.c64"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "div.c69"
+          ]
+        },
+        {
+          "name": "carousel-news",
+          "instances": [
+            "div.c57 section.splide"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero Video",
+          "selector": "div.c74",
+          "style": "dark-gray",
+          "blocks": ["hero-video"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Belief Statement + Mosaic",
+          "selector": "div.c06r[class*='background-color-dark-blue']",
+          "style": "dark-blue",
+          "blocks": ["columns-collage"],
+          "defaultContent": [
+            "div.c06r h2.type-display",
+            "div.c06r .description",
+            "div.c06r a.cta-button"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "Feature Tiles",
+          "selector": "div.c64:first-of-type",
+          "style": null,
+          "blocks": ["cards-tile"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "History",
+          "selector": "div.c06r[class*='background-color-dark-green']",
+          "style": "dark-green",
+          "blocks": [],
+          "defaultContent": [
+            "div.c06r h2.type-display",
+            "div.c06r .description",
+            "div.c06r a.cta-button",
+            "div.c17e img"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Quality + Feature Links",
+          "selector": "div.c06r[class*='background-color-white']",
+          "style": null,
+          "blocks": ["columns-feature"],
+          "defaultContent": [
+            "div.c06r h2.type-display",
+            "div.c06r .description"
+          ]
+        },
+        {
+          "id": "section-6",
+          "name": "News Carousel",
+          "selector": "div.c57",
+          "style": null,
+          "blocks": ["carousel-news"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "Newsletter Banner",
+          "selector": "div.c60",
+          "style": "dark-blue",
+          "blocks": [],
+          "defaultContent": [
+            "div.c60 h2",
+            "div.c60 a"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "careers-page",
+      "urls": [
+        "https://www.chevron.com/who-we-are/contact/jobs"
+      ],
+      "description": "Careers and jobs page with hero, repeating side-by-side feature cards, and newsletter banner",
+      "blocks": [
+        {
+          "name": "hero-video",
+          "instances": ["div.c74"]
+        },
+        {
+          "name": "columns-feature",
+          "instances": ["div.c69"]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero",
+          "selector": "div.c74",
+          "style": "dark-gray",
+          "blocks": ["hero-video"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Career Feature Cards",
+          "selector": "div.c69",
+          "style": null,
+          "blocks": ["columns-feature"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Newsletter Banner",
+          "selector": "div.c60",
+          "style": "dark-blue",
+          "blocks": [],
+          "defaultContent": ["div.c60 h2", "div.c60 a"]
+        }
+      ]
     }
   ]
 }

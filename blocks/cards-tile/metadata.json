@@ -1,0 +1,21 @@
+{
+  "blockName": "cards-tile",
+  "basedOn": "cards",
+  "source": "Block Collection",
+  "createdFor": "https://www.chevron.com/who-we-are",
+  "description": "Feature tile cards with half-tile text and quarter-tile image/CTA layout, based on Chevron c64 module",
+  "visualCharacteristics": {
+    "layout": "tile with half/quarter subdivisions",
+    "colorVariants": ["dark-purple", "dark-teal", "dark-blue"],
+    "alignment": ["left", "right"],
+    "hasImage": true,
+    "hasCTA": true
+  },
+  "usage": [
+    {
+      "url": "https://www.chevron.com/who-we-are",
+      "instances": 3,
+      "selectors": ["div.c64#mod_5a0f50ca", "div.c64#mod_21475860", "div.c64#mod_45da369a"]
+    }
+  ]
+}

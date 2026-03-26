@@ -128,6 +128,27 @@
           }
         },
         {
+          "title": "AEM Embed",
+          "id": "aem-embed",
+          "model": "aem-embed",
+          "filter": "aem-embed",
+          "plugins": {
+            "da": {
+              "unsafeHTML": " AEM Embed URL ",
+              "fields": [
+                {
+                  "name": "url",
+                  "selector": "div>div>p>a[href]"
+                },
+                {
+                  "name": "embedType",
+                  "selector": "div>div:nth-child(2) p"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "model": "cards",

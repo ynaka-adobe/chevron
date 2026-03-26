@@ -107,6 +107,24 @@
     ]
   },
   {
+    "id": "aem-embed",
+    "fields": [
+      {
+        "component": "text",
+        "name": "url",
+        "label": "Embed URL",
+        "required": true,
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "embedType",
+        "label": "Type (optional: header or footer)",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {

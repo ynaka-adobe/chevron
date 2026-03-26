@@ -1,0 +1,266 @@
+/* Nav Flyout – Chevron full-screen overlay navigation */
+.nav-flyout {
+  --flyout-bg: var(--color-dark-blue);
+  --flyout-text: var(--color-white);
+  --flyout-link: var(--color-white);
+  --flyout-link-overview: var(--color-medium-blue);
+  --flyout-link-hover: var(--color-light-blue);
+  --flyout-font-size: 32px;
+  --flyout-secondary-font-size: 28px;
+  --flyout-transition-speed: 0.35s;
+  --flyout-header-height: 56px;
+  --flyout-padding-x: var(--spacing-l);
+  --flyout-padding-top: 80px;
+
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Open state */
+.nav-flyout.is-open {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Backdrop */
+.nav-flyout-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 50%);
+  opacity: 0;
+  transition: opacity var(--flyout-transition-speed) ease;
+}
+
+.nav-flyout.is-open .nav-flyout-backdrop {
+  opacity: 1;
+}
+
+/* Panels – shared base */
+.nav-flyout-panel {
+  position: absolute;
+  inset: 0;
+  background: var(--flyout-bg);
+  color: var(--flyout-text);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Level 1 panel */
+.nav-flyout-level1 {
+  transform: translateX(-100%);
+  transition: transform var(--flyout-transition-speed) ease;
+  padding: var(--flyout-padding-top) var(--flyout-padding-x) var(--spacing-xl);
+}
+
+.nav-flyout.is-open .nav-flyout-level1 {
+  transform: translateX(0);
+}
+
+/* Level 2 container */
+.nav-flyout-level2-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Level 2 panels */
+.nav-flyout-level2 {
+  transform: translateX(100%);
+  transition: transform var(--flyout-transition-speed) ease;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--flyout-padding-x) var(--spacing-xl);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.nav-flyout-level2.is-open {
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Level 2 header */
+.nav-flyout-level2-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--flyout-header-height);
+  margin-bottom: var(--spacing-l);
+  flex-shrink: 0;
+}
+
+.nav-flyout-level2-title {
+  font-family: var(--font-family);
+  font-size: var(--body-font-size-m);
+  font-weight: 400;
+  color: var(--flyout-text);
+  text-align: center;
+  flex: 1;
+}
+
+/* Lists */
+.nav-flyout-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-flyout-primary {
+  margin-bottom: var(--spacing-xl);
+}
+
+.nav-flyout-item {
+  margin-bottom: var(--spacing-s);
+}
+
+.nav-flyout-subitem {
+  margin-bottom: var(--spacing-s);
+}
+
+/* Links */
+.nav-flyout-link {
+  display: block;
+  font-family: var(--font-family);
+  font-size: var(--flyout-font-size);
+  font-weight: 400;
+  color: var(--flyout-link);
+  text-decoration: none;
+  padding: var(--spacing-s) 0;
+  transition: color 0.2s ease;
+}
+
+.nav-flyout-link:hover {
+  color: var(--flyout-link-hover);
+}
+
+.nav-flyout-secondary .nav-flyout-link {
+  font-size: var(--flyout-secondary-font-size);
+}
+
+/* Overview link (first child in level 2) */
+.nav-flyout-overview .nav-flyout-link {
+  color: var(--flyout-link-overview);
+}
+
+/* Trigger buttons (level 1 items with children) */
+.nav-flyout-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--flyout-font-size);
+  font-weight: 400;
+  color: var(--flyout-link);
+  padding: var(--spacing-s) 0;
+  text-align: left;
+  transition: color 0.2s ease;
+}
+
+.nav-flyout-trigger:hover {
+  color: var(--flyout-link-hover);
+}
+
+/* Icon base */
+.nav-flyout-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Close icon (X) */
+.nav-flyout-icon-close::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  background: linear-gradient(
+      to top right,
+      transparent calc(50% - 1px),
+      var(--flyout-text) calc(50% - 1px),
+      var(--flyout-text) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    ),
+    linear-gradient(
+      to bottom right,
+      transparent calc(50% - 1px),
+      var(--flyout-text) calc(50% - 1px),
+      var(--flyout-text) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    );
+}
+
+/* Chevron arrow icon (>) */
+.nav-flyout-icon-chevron::before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid var(--flyout-text);
+  border-top: 2px solid var(--flyout-text);
+  transform: rotate(45deg);
+}
+
+/* Back arrow icon (<-) */
+.nav-flyout-icon-back::before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-left: 2px solid var(--flyout-text);
+  border-bottom: 2px solid var(--flyout-text);
+  transform: rotate(45deg);
+}
+
+/* Close and Back buttons */
+.nav-flyout-close,
+.nav-flyout-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+/* Level 1 close button — top-right corner */
+.nav-flyout-level1 > .nav-flyout-close {
+  position: absolute;
+  top: var(--spacing-s);
+  right: var(--spacing-s);
+}
+
+/* Body scroll lock */
+body.nav-flyout-active {
+  overflow: hidden;
+}
+
+/* Responsive: desktop — wider flyout, larger text */
+@media (width >= 900px) {
+  .nav-flyout {
+    --flyout-font-size: 36px;
+    --flyout-secondary-font-size: 32px;
+    --flyout-padding-x: var(--spacing-xxl);
+    --flyout-padding-top: 100px;
+  }
+
+  .nav-flyout-level1,
+  .nav-flyout-level2 {
+    max-width: 780px;
+  }
+}

@@ -102,6 +102,12 @@ function decorateScheme(btn) {
 
 function decorateNavToggle(btn) {
   btn.addEventListener('click', () => {
+    // Prefer the nav-flyout block if available
+    if (typeof window.toggleNavFlyout === 'function') {
+      window.toggleNavFlyout();
+      return;
+    }
+    // Fallback: simple mobile menu
     const header = document.body.querySelector('header');
     if (header) header.classList.toggle('is-mobile-open');
   });

@@ -1,5 +1,13 @@
 import { loadArea, setConfig } from './ak.js';
 
+/**
+ * Used by AEM Embed when embedding fragments (same API as Franklin boilerplate).
+ * @param {HTMLElement} main
+ */
+export async function decorateMain(main) {
+  await loadArea({ area: main });
+}
+
 // UE Editor support before page load
 // Load when: da.live UE (*.ue.da.live) OR in iframe (experience.adobe.com canvas)
 const isDaLiveUE = /\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname);
@@ -31,7 +39,7 @@ const linkBlocks = [
 const components = ['fragment', 'schedule'];
 
 // How to decorate an area before loading it
-const decorateArea = ({ area = document } = {}) => {
+const decorateArea = () => {
   // eagerLoad removed - setting fetchPriority on images triggers about:error
   // when loads fail (CORS, proxy, UE iframe). LCP impact is minimal.
 };
@@ -40,7 +48,11 @@ export async function loadPage() {
   setConfig({ hostnames, locales, linkBlocks, components, decorateArea });
   await loadArea();
 }
-await loadPage();
+
+// Suppress full-page load when AEM Embed loads scripts.js inside an embed (see aem-embed.js)
+if (!window.hlx?.suppressLoadPage) {
+  await loadPage();
+}
 
 (function da() {
   const { searchParams } = new URL(window.location.href);

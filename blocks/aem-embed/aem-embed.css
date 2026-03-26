@@ -1,0 +1,12 @@
+.aem-embed {
+  display: block;
+  width: 100%;
+  min-height: 1px;
+}
+
+.aem-embed--error .aem-embed-error {
+  margin: 0;
+  padding: var(--spacing-m);
+  color: var(--color-medium-red, #c00);
+  font-size: var(--body-font-size-s, 14px);
+}

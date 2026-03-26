@@ -1,0 +1,40 @@
+{
+  "definitions": [
+    {
+      "title": "AEM Embed",
+      "id": "aem-embed",
+      "model": "aem-embed",
+      "filter": "aem-embed",
+      "plugins": {
+        "da": {
+          "unsafeHTML": " AEM Embed URL ",
+          "fields": [
+            { "name": "url", "selector": "div>div>p>a[href]" },
+            { "name": "embedType", "selector": "div>div:nth-child(2) p" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "aem-embed",
+      "fields": [
+        {
+          "component": "text",
+          "name": "url",
+          "label": "Embed URL",
+          "required": true,
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "embedType",
+          "label": "Type (optional: header or footer)",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

@@ -1,0 +1,7 @@
+{
+  "variantName": "aem-embed",
+  "description": "Embeds AEM content using the AEM Embed web component.",
+  "structure": "Row 1: embed URL. Row 2 (optional): header or footer.",
+  "suitableFor": ["cross-site fragments", "shared nav or footer"],
+  "notSuitableFor": []
+}

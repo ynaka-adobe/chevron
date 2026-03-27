@@ -4,6 +4,43 @@
  * https://www.hlx.live/developer/block-collection/TBD
  */
 
+function getAemConnectionOrigin() {
+  const meta = document.querySelector('meta[name="urn:aem:editor:aemconnection"]')?.content;
+  if (!meta?.startsWith('aem:')) return null;
+  try {
+    return new URL(meta.slice(4)).origin;
+  } catch {
+    return null;
+  }
+}
+
+/** Root-relative or localhost embed URLs must fetch .plain.html from AEM, not the dev server. */
+function resolveEmbedFetchUrl(url) {
+  if (!url?.trim()) return url;
+  const aemOrigin = getAemConnectionOrigin();
+  const trimmed = url.trim();
+  let u;
+  try {
+    u = new URL(trimmed);
+  } catch {
+    try {
+      u = new URL(trimmed, window.location.href);
+    } catch {
+      return trimmed;
+    }
+  }
+  const isLocalDev = window.location.hostname === 'localhost'
+    || window.location.hostname === '127.0.0.1';
+  const pointsAtDevServer = isLocalDev
+    && (u.origin === window.location.origin
+      || u.hostname === 'localhost'
+      || u.hostname === '127.0.0.1');
+  if (pointsAtDevServer && aemOrigin) {
+    return `${aemOrigin}${u.pathname}${u.search}`;
+  }
+  return trimmed;
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export class AEMEmbed extends HTMLElement {
   constructor() {
@@ -157,7 +194,7 @@ export class AEMEmbed extends HTMLElement {
         body.style = 'display: none';
         this.shadowRoot.append(body);
 
-        const url = urlAttribute.value;
+        const url = resolveEmbedFetchUrl(urlAttribute.value);
         const plainUrl = url.endsWith('/') ? `${url}index.plain.html` : `${url}.plain.html`;
         const { href, origin } = new URL(plainUrl);
 

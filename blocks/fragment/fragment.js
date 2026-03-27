@@ -1,9 +1,32 @@
 import { loadArea } from '../../scripts/ak.js';
 
-function replaceDotMedia(path, doc) {
+/** Same origin as head.html urn:aem:editor:aemconnection — content is not served at localhost. */
+function getAemConnectionOrigin() {
+  const meta = document.querySelector('meta[name="urn:aem:editor:aemconnection"]')?.content;
+  if (!meta?.startsWith('aem:')) return null;
+  try {
+    return new URL(meta.slice(4)).origin;
+  } catch {
+    return null;
+  }
+}
+
+/** Fetch published fragments from AEM when the page is opened on localhost. */
+function resolveFragmentFetchUrl(path) {
+  if (!path || typeof path !== 'string') return path;
+  const isLocalDev = window.location.hostname === 'localhost'
+    || window.location.hostname === '127.0.0.1';
+  const aemOrigin = getAemConnectionOrigin();
+  if (isLocalDev && aemOrigin && path.startsWith('/')) {
+    return `${aemOrigin}${path}`;
+  }
+  return path;
+}
+
+function replaceDotMedia(mediaBaseHref, doc) {
   const resetAttributeBase = (tag, attr) => {
     doc.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((el) => {
-      el[attr] = new URL(el.getAttribute(attr), new URL(path, window.location)).href;
+      el[attr] = new URL(el.getAttribute(attr), mediaBaseHref).href;
     });
   };
   resetAttributeBase('img', 'src');
@@ -29,7 +52,8 @@ function applyPageStyles(fragment) {
  * @returns {HTMLElement} The root element of the fragment
  */
 export async function loadFragment(path) {
-  const resp = await fetch(`${path}`);
+  const fetchUrl = resolveFragmentFetchUrl(path);
+  const resp = await fetch(fetchUrl);
   if (!resp.ok) throw Error(`Couldn't fetch ${path}`);
 
   const html = await resp.text();
@@ -40,7 +64,10 @@ export async function loadFragment(path) {
   fragment.classList.add('fragment-content');
   fragment.append(...sections);
 
-  replaceDotMedia(path, doc);
+  const mediaBaseHref = fetchUrl.startsWith('http')
+    ? fetchUrl
+    : new URL(path, window.location.href).href;
+  replaceDotMedia(mediaBaseHref, doc);
 
   const container = applyPageStyles(fragment);
 

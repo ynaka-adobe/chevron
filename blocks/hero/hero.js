@@ -59,6 +59,7 @@ function decorateForeground(fg) {
 }
 
 export default async function init(el) {
+  document.body.classList.add('has-hero');
   const rows = [...el.querySelectorAll(':scope > div')];
   const fg = rows.pop();
   fg.classList.add('hero-foreground');

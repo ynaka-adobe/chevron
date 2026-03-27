@@ -255,7 +255,7 @@ a {
   > .default-content {
     max-width: var(--grid-container-width);
     margin: 0 auto;
-    padding: var(--spacing-xl) var(--spacing-m);
+//    padding: var(--spacing-xl) var(--spacing-m);
   }
 }
 

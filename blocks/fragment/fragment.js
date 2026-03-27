@@ -67,7 +67,7 @@ export async function loadFragment(path) {
   const mediaBaseHref = fetchUrl.startsWith('http')
     ? fetchUrl
     : new URL(path, window.location.href).href;
-  replaceDotMedia(mediaBaseHref, doc);
+  replaceDotMedia(mediaBaseHref, fragment);
 
   const container = applyPageStyles(fragment);
 

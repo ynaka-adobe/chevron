@@ -177,6 +177,19 @@ function decorateBrandSection(section) {
     span.textContent = textNode.textContent;
     textNode.replaceWith(span);
   }
+
+  // Hallmark pattern: dual dark/light logo variants (mirrors nav-2023-hallmark-container)
+  const existingImg = brandLink.querySelector('img');
+  if (existingImg) {
+    existingImg.classList.add('hallmark-theme-dark');
+    const lightImg = existingImg.cloneNode(false);
+    lightImg.classList.remove('hallmark-theme-dark');
+    lightImg.classList.add('hallmark-theme-light');
+    existingImg.after(lightImg);
+    brandLink.classList.add('hallmark-link');
+    const wrapper = brandLink.closest('p') ?? brandLink.parentElement;
+    if (wrapper) wrapper.classList.add('hallmark-container');
+  }
 }
 
 function decorateNavSection(section, side) {

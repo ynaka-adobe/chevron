@@ -1,8 +1,13 @@
 /* Header - Chevron centered-logo layout: nav-left | logo | nav-right */
 header {
-  --logo-width: 40px;
-  --logo-height: 40px;
+  --logo-width: 48px;
+  --logo-height: 48px;
   --mega-columns: 4;
+
+  /* Hide light hallmark by default; hero-video.css swaps it in over dark video */
+  .hallmark-theme-light {
+    display: none;
+  }
 
   display: block;
   position: fixed;

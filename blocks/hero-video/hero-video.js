@@ -59,11 +59,14 @@ function mediaHostColumn(bg) {
 function removeVideoLinkFromDom(anchor, scope) {
   if (!anchor?.isConnected) return;
   if (scope === 'fg') {
-    const p = anchor.closest('p');
-    if (p && p.querySelectorAll('a').length === 1) {
-      const t = p.textContent.trim();
-      if (t === anchor.textContent.trim() || t === anchor.href || /^\s*https?:/i.test(t)) {
-        p.remove();
+    // Walk up to the nearest block-level wrapper (p or div) and remove it
+    // if the anchor is the only meaningful content inside it.
+    const wrapper = anchor.closest('p, div:not(.hero-foreground):not(.hero-video)');
+    if (wrapper && wrapper.querySelectorAll('a').length === 1) {
+      const remaining = wrapper.textContent.replace(anchor.textContent, '').trim();
+      // Remove if nothing remains, or only stray chars from a split URL (e.g. "4" from ".mp4")
+      if (!remaining || remaining.length <= 5) {
+        wrapper.remove();
         return;
       }
     }
@@ -96,16 +99,52 @@ function startBackgroundVideo(video, bgPic) {
   }, { once: true });
 }
 
+/* Pause SVG icon */
+const PAUSE_ICON = `<svg class="btn-icon" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+  <rect x="2" y="1" width="3.5" height="12" rx="1"/>
+  <rect x="8.5" y="1" width="3.5" height="12" rx="1"/>
+</svg>`;
+
+/* Play SVG icon */
+const PLAY_ICON = `<svg class="btn-icon" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+  <path d="M2 1.5l10 5.5-10 5.5z"/>
+</svg>`;
+
+function addPlayPauseButton(hero, video) {
+  const controls = document.createElement('div');
+  controls.className = 'hero-video-controls';
+
+  const btn = document.createElement('button');
+  btn.className = 'play-pause-btn';
+  btn.setAttribute('aria-label', 'Pause video');
+  btn.innerHTML = `${PAUSE_ICON}<span>Pause</span>`;
+
+  btn.addEventListener('click', () => {
+    if (video.paused) {
+      video.play().catch(() => {});
+      btn.setAttribute('aria-label', 'Pause video');
+      btn.innerHTML = `${PAUSE_ICON}<span>Pause</span>`;
+    } else {
+      video.pause();
+      btn.setAttribute('aria-label', 'Play video');
+      btn.innerHTML = `${PLAY_ICON}<span>Play</span>`;
+    }
+  });
+
+  controls.append(btn);
+  hero.append(controls);
+}
+
 function mountVideoInBackground(bg, fg) {
   const bgPic = bg.querySelector('picture');
   const img = bgPic?.querySelector('img');
   if (img) setBackgroundFocus(img);
 
   const found = findVideoAnchor(bg, fg);
-  if (!found) return;
+  if (!found) return null;
 
   const { anchor: vidLink, scope } = found;
-  if (!vidLink?.href) return;
+  if (!vidLink?.href) return null;
 
   const video = document.createElement('video');
   video.src = vidLink.href;
@@ -140,6 +179,8 @@ function mountVideoInBackground(bg, fg) {
   if (vidLink.isConnected) {
     removeVideoLinkFromDom(vidLink, scope);
   }
+
+  return video;
 }
 
 /**
@@ -164,31 +205,38 @@ function normalizeHeroVideoRows(block) {
 }
 
 function decorateForeground(fg) {
-  const { children } = fg;
   const root = fg.closest('.hero');
-  for (const [idx, child] of [...children].entries()) {
-    const heading = child.querySelector('h1, h2, h3, h4, h5, h6');
-    const text = heading || child.querySelector('p, a, ul');
+  const cols = [...fg.children];
+
+  // Find the column with the heading — this becomes the main fg-text container.
+  const headingCol = cols.find((c) => c.querySelector('h1, h2, h3, h4, h5, h6'));
+
+  for (const col of cols) {
+    const heading = col.querySelector('h1, h2, h3, h4, h5, h6');
     if (heading) {
       heading.classList.add('hero-heading');
       const detail = heading.previousElementSibling;
-      if (detail) {
-        detail.classList.add('hero-detail');
+      if (detail) detail.classList.add('hero-detail');
+      col.classList.add('fg-text');
+      root.classList.add('hero-text-start');
+    } else if (headingCol && col !== headingCol && !col.querySelector('a[href]') && col.textContent.trim()) {
+      // Plain-text column (e.g. description): wrap its content in a <p> if needed
+      // and move it into the heading column so it renders inside the white box.
+      if (!col.querySelector('p')) {
+        const p = document.createElement('p');
+        p.textContent = col.textContent;
+        col.replaceChildren(p);
       }
-    }
-    if (text) {
-      child.classList.add('fg-text');
-      if (idx === 0) {
-        root.classList.add('hero-text-start');
-      } else {
-        root.classList.add('hero-text-end');
-      }
+      headingCol.append(...col.childNodes);
+      col.remove();
     }
   }
+
   root.classList.add('center');
 }
 
 export default function decorate(block) {
+  document.body.classList.add('has-hero', 'has-hero-video');
   normalizeHeroVideoRows(block);
 
   block.classList.add('hero', 'full', 'dark');
@@ -200,14 +248,16 @@ export default function decorate(block) {
     fg.classList.add('hero-foreground');
     decorateForeground(fg);
     bg.classList.add('hero-background');
-    mountVideoInBackground(bg, fg);
+    const video = mountVideoInBackground(bg, fg);
+    if (video) addPlayPauseButton(block, video);
     return;
   }
 
   if (rows.length === 1) {
     const bg = rows[0];
     bg.classList.add('hero-background');
-    mountVideoInBackground(bg, null);
+    const video = mountVideoInBackground(bg, null);
+    if (video) addPlayPauseButton(block, video);
   }
 
   if (!block.querySelector('picture, img, .hero-background video')) {

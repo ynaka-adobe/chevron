@@ -33,6 +33,7 @@ function decorateBackground(bg) {
 
 function decorateForeground(fg) {
   const { children } = fg;
+  const hero = fg.closest('.hero');
   for (const [idx, child] of [...children].entries()) {
     const heading = child.querySelector('h1, h2, h3, h4, h5, h6');
     const text = heading || child.querySelector('p, a, ul');
@@ -47,12 +48,14 @@ function decorateForeground(fg) {
     if (text) {
       child.classList.add('fg-text');
       if (idx === 0) {
-        child.closest('.hero').classList.add('hero-text-start');
+        hero.classList.add('hero-text-start');
       } else {
-        child.closest('.hero').classList.add('hero-text-end');
+        hero.classList.add('hero-text-end');
       }
     }
   }
+  // Center hero content (e.g. "Premium Chevron Lubricants" headline)
+  hero.classList.add('center');
 }
 
 export default async function init(el) {

@@ -1,0 +1,39 @@
+{
+  "variantName": "columns-promo",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-02-27T21:07:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.chevronlubricants.com",
+    "originPage": "homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "promotional-columns",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "3 columns with linked image + bold title + description",
+    "buttonCount": 0,
+    "imageCount": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "homepage promotional sections",
+      "product category highlights",
+      "feature showcases with images"
+    ],
+    "notSuitableFor": [
+      "text-only columns",
+      "logo-only rows",
+      "comparison tables"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["content/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-02-27T21:07:00.000Z"
+  }
+}

@@ -170,10 +170,21 @@ function decorateHash(a, url) {
   return { dnt, dnb };
 }
 
+// For EDS platform domains (e.g. authorkit.dev), multiple sites share the same
+// domain suffix. Compare repo--org (last 2 segments of branch--repo--org) to
+// ensure we only relativize links to THIS site, not other sites on the same platform.
+function isSameSite(linkHostname) {
+  const linkId = linkHostname.split('.')[0];
+  const currentId = window.location.hostname.split('.')[0];
+  const siteId = (id) => id.split('--').slice(-2).join('--');
+  return siteId(linkId) === siteId(currentId);
+}
+
 export function decorateLink(config, a) {
   try {
     const url = new URL(a.href);
-    const hostMatch = config.hostnames.some((host) => url.hostname.endsWith(host));
+    const hostMatch = config.hostnames.some((host) => url.hostname.endsWith(host))
+      && isSameSite(url.hostname);
     if (hostMatch) a.href = a.href.replace(url.origin, '');
 
     const isRelative = a.getAttribute('href').startsWith('/');

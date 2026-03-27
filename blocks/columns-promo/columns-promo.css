@@ -42,7 +42,7 @@
 }
 
 .columns-promo > div > .columns-promo-card:hover {
-  border-color: var(--color-chevron-medium-blue);
+  border-color: var(--color-medium-blue);
   box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
   transform: translateY(-2px);
 }
@@ -154,7 +154,7 @@
 }
 
 .columns-promo strong {
-  color: var(--color-chevron-dark-blue);
+  color: var(--color-dark-blue);
   font-size: var(--heading-font-size-m);
   font-weight: 700;
   display: block;
@@ -162,13 +162,13 @@
 }
 
 .columns-promo a {
-  color: var(--color-chevron-dark-blue);
+  color: var(--color-black) !important;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .columns-promo a:hover {
-  color: var(--color-chevron-medium-blue);
+  color: var(--color-medium-blue) !important;
 }
 
 /* 30: ~30% width = 2 cols at 600px */

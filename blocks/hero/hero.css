@@ -162,6 +162,16 @@
       justify-content: center;
       text-align: center;
     }
+
+    .hero-foreground p a,
+    .hero-foreground .fg-text a {
+      color: var(--color-dark-blue) !important;
+    }
+
+    .hero-foreground p a:hover,
+    .hero-foreground .fg-text a:hover {
+      color: var(--color-dark-blue) !important;
+    }
   }
 
   /* account-based: Chevron Championship style - full-bleed, centered overlay
@@ -257,7 +267,7 @@
     font-weight: 700;
     font-size: var(--body-font-size-l);
     background-color: var(--color-white);
-    color: var(--color-chevron-dark-blue) !important;
+    color: var(--color-dark-blue) !important;
     border: 2px solid var(--color-white);
     transform: scale(1);
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
@@ -266,9 +276,9 @@
 
   .hero-foreground p a:hover,
   .hero-foreground .fg-text a:hover {
-    background-color: var(--color-chevron-light-blue);
-    border-color: var(--color-chevron-light-blue);
-    color: var(--color-chevron-dark-blue) !important;
+    background-color: var(--color-light-blue);
+    border-color: var(--color-light-blue);
+    color: var(--color-dark-blue) !important;
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgb(0 0 0 / 25%);
     text-decoration: none;

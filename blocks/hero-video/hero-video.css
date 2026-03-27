@@ -1,53 +1,44 @@
-.hero-video-container .hero-video-wrapper {
-  max-width: unset;
-  padding: 0;
+/* Chevron who-we-are style: full-bleed video (media-container / video-container) + gradient text band */
+@import url('../hero/hero.css');
+
+/* Typical section hero height: cap viewport-tall video to ~720px like chevron.com */
+.hero.hero-video.full {
+  --min-height: min(720px, calc(100vh - var(--header-height)));
 }
 
-.hero-video {
-  position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+/* Single-row ambient video only (no text row) */
+.hero.hero-video:not(:has(.hero-foreground)) {
+  min-height: var(--min-height);
 }
 
-.hero-video h1,
-.hero-video h2,
-.hero-video h3,
-.hero-video h4,
-.hero-video h5,
-.hero-video h6,
-.hero-video p {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero-video.no-image * {
-  color: var(--text-color);
-}
-
-.hero-video picture,
-.hero-video video.hero-video-background {
+.hero.hero-video:not(:has(.hero-foreground)) .hero-background {
   position: absolute;
-  z-index: -1;
   inset: 0;
-  box-sizing: border-box;
-  pointer-events: none;
 }
 
-.hero-video picture {
-  transition: opacity 0.5s ease;
+/* Fallback when no poster / media */
+.hero.hero-video.no-image .hero-foreground {
+  color: var(--color-dark);
+  background: var(--color-offwhite);
 }
 
-.hero-video img,
-.hero-video video.hero-video-background {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+/* Chevron who-we-are: text sits over a bottom-weighted scrim (media-container hero) */
+.hero.hero-video .hero-foreground {
+  align-items: flex-end;
+  padding-top: var(--spacing-xxl);
+  padding-bottom: calc(var(--spacing-xxl) + var(--spacing-m));
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0%) 0%,
+    rgb(var(--color-dark-base) / 35%) 42%,
+    rgb(var(--color-dark-base) / 82%) 100%
+  );
 }
 
-@media (width >= 900px) {
-  .hero-video {
-    padding: 40px 32px;
+@media (width >= 600px) {
+  .hero.hero-video.center .hero-foreground {
+    display: flex;
+    justify-content: center;
+    text-align: center;
   }
 }
